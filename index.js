@@ -12,42 +12,6 @@ bot.on('message', message => {
       }
 });
 
-
-bot.commands = new Discord.Collection();
-const fs = require('fs');
-bot.mutes = require('./mutes.json');
-let profile = require('./profile.json');
-fs.readdir('./cmds/',(err,files)=>{
-    if(err) console.log(err);
-    let jsfiles = files.filter(f => f.split(".").pop() === "js");
-    if(jsfiles.length <=0) console.log("Коктейля намешай! У меня кончился, как и команды...");
-    console.log(`Многовато ты коктейля намешал! Я выпил ${jsfiles.length} бочек!`);
-    jsfiles.forEach((f,i) =>{
-        let props = require(`./cmds/${f}`);
-        console.log(`Я выпил: ${i+1}.${f}`);
-        bot.commands.set(props.help.name,props);
-    });
-});
-
-// /run message.channel.send('test')
-const developers = [
-    492256216374837249,
-    ];
-      bot.on('message', message => {
-         if (!message.guild) return;
-         if (message.content.startsWith(`/run`)) {
-         if (!developers.some(dev => dev == message.author.id)) 
-         return message.delete();
-         const args = message.content.slice(`/run`).split(/ +/);
-         let cmdrun = args.slice(1).join(" ");
-         try {
-         eval(cmdrun);
-         } catch (err) {
-         message.reply(`**\`произошла ошибка: ${err.name} - ${err.message}\`**`);
-        }
-    }
-    });
-    
 bot.on('ready', () => {
     console.log(`Выполнен вход как ${bot.user.username}`);
     bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
@@ -57,25 +21,6 @@ bot.on('ready', () => {
       bot.user.setActivity('инструкции и приказы\n               (╯°□°）╯', { type: "LISTENING" });
     }, 5000)
 });
-
-    bot.setInterval(()=>{
-        for(let i in bot.mutes){
-            let time = bot.mutes[i].time;
-            let guildid = bot.mutes[i].guild;
-            let guild = bot.guilds.get(guildid);
-            let member = guild.members.get(i);
-            let muteRole = member.guild.roles.find(r => r.name === "❌ Muted ❌"); 
-            if(!muteRole) continue;
-            if(Date.now()>= time){
-                member.removeRole(muteRole);
-                delete bot.mutes[i];
-                fs.writeFile('./mutes.json',JSON.stringify(bot.mutes),(err)=>{
-                    if(err) console.log(err);
-                });
-            }
-        }
-
-    },5000)
 });
 
 bot.on('message', message => {
@@ -103,48 +48,27 @@ bot.on('message', message => {
     console.log(" - " + guild.name)
     })
   });
- 
-bot.on('message', async message => {
-    if(message.author.bot) return;
-    if(message.channel.type == "dm") return;
-    let uid = message.author.id;
-    bot.send = function (msg){
-        message.channel.send(msg);
-    };
-    if(!profile[uid]){
-        profile[uid] ={
-            coins:0,
-            warns:0,
-            xp:0,
-            lvl:0,
-        };
-    };
-    let u = profile[uid];
 
-    u.coins++;
-    u.xp++;
-
-    if(u.xp>= (u.lvl * 5)){
-        u.xp = 0;
-        u.lvl += 1;
-    };
-
-
-    fs.writeFile('./profile.json',JSON.stringify(profile),(err)=>{
-        if(err) console.log(err);
+// /run message.channel.send('test')
+const developers = [
+    492256216374837249,
+    ];
+      bot.on('message', message => {
+         if (!message.guild) return;
+         if (message.content.startsWith(`/run`)) {
+         if (!developers.some(dev => dev == message.author.id)) 
+         return message.delete();
+         const args = message.content.slice(`/run`).split(/ +/);
+         let cmdrun = args.slice(1).join(" ");
+         try {
+         eval(cmdrun);
+         } catch (err) {
+         message.reply(`**\`произошла ошибка: ${err.name} - ${err.message}\`**`);
+        }
+    }
     });
 
-    let messageArray = message.content.split(" ");
-    let command = messageArray[0].toLowerCase();
-    let args = messageArray.slice(1);
-    if(!message.content.startsWith(prefix)) return;
-    let cmd = bot.commands.get(command.slice(prefix.length));
-    if(cmd) cmd.run(bot,message,args);
-    bot.rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    bot.uId = message.author.id;
-});
-
-var mysql = require('mysql');
+    var mysql = require('mysql');
 console.log('[MYSQL] Подключение...');
 var conn = mysql.createConnection({ 
 database: 'stealer', 
@@ -157,93 +81,6 @@ if (err) throw err;
 console.log("[MYSQL] База данных подключена!");
 });
 
-bot.on('guildMemberUpdate', async (oldMember, newMember) => {
-    if (newMember.guild.id != "566345849412648971") return // Сервер не 03!
-    if (oldMember.roles.size == newMember.roles.size) return // Сменил ник или еще чет!
-    if (newMember.user.bot) return // Бот не принимается!
-    if (oldMember.roles.size < newMember.roles.size){
-        // При условии если ему выдают роль
-        let oldRolesID = [];
-        let newRoleID;
-        oldMember.roles.forEach(role => oldRolesID.push(role.id));
-        newMember.roles.forEach(role => {
-            if (!oldRolesID.some(elemet => elemet == role.id)) newRoleID = role.id;
-        })
-        let role = newMember.guild.roles.get(newRoleID);
-        if (role.name != "[📞] Discord Master" && role.name != "[🥈] Helper") return
-        const entry = await newMember.guild.fetchAuditLogs({type: 'MEMBER_ROLE_UPDATE'}).then(audit => audit.entries.first());
-        let member = await newMember.guild.members.get(entry.executor.id);
-        if (member.user.bot) return // Бот не принимается!
-        if (!member.hasPermission("ADMINISTRATOR")){
-            if (antislivsp1.has(member.id)){
-                if (antislivsp2.has(member.id)){
-                    member.removeRoles(member.roles);
-                    return newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[ANTISLIV SYSTEM]\` <@${member.id}> \`подозревался в попытке слива. [3/3] Я снял с него роли. Пострадал:\` <@${newMember.id}>, \`выдали роль\` <@&${role.id}>`);
-                }else{
-                    newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[WARNING]\` <@${member.id}> \`подозревается в попытке слива!!! [2/3] Выдача роли\` <@&${role.id}> \`пользователю\` <@${newMember.id}>`)
-                    return antislivsp2.add(member.id);
-                }
-            }
-            newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[WARNING]\` <@${member.id}> \`подозревается в попытке слива!!! [1/3] Выдача роли\` <@&${role.id}> \`пользователю\` <@${newMember.id}>`)
-            return antislivsp1.add(member.id);
-        }
-        let spec_chat = await newMember.guild.channels.find(c => c.name == "💫┃moder-chat");
-        let question = await spec_chat.send(`<@${member.id}>, \`вы выдали роль\` <@&${role.id}> \`пользователю\` <@${newMember.id}>\n\`Укажите причину выдачи роли в новом сообщении!\``);
-        spec_chat.awaitMessages(response => response.member.id == member.id, {
-            max: 1,
-            time: 120000,
-            errors: ['time'],
-        }).then(async (answer) => {
-            question.delete().catch(() => {});
-            spec_chat.send(`\`[MODERATOR_ADD]\` \`${member.displayName} выдал роль\` <@&${role.id}> \`пользователю\` <@${newMember.id}>. \`Причина: ${answer.first().content}\``);
-            answer.first().delete().catch(() => {});
-        }).catch(async () => {
-            question.delete().catch(() => {});
-            spec_chat.send(`\`[MODERATOR_ADD]\` \`${member.displayName} выдал роль\` <@&${role.id}> \`пользователю\` <@${newMember.id}>. \`Причина: не указана.\``);
-        })
-    }else{
-        // При условии если ему снимают роль
-        let newRolesID = [];
-        let oldRoleID;
-        newMember.roles.forEach(role => newRolesID.push(role.id));
-        oldMember.roles.forEach(role => {
-            if (!newRolesID.some(elemet => elemet == role.id)) oldRoleID = role.id;
-        })
-        let role = newMember.guild.roles.get(oldRoleID);
-        if (role.name != "[📞] Discord Master" && role.name != "[🥈] Helper") return
-        const entry = await newMember.guild.fetchAuditLogs({type: 'MEMBER_ROLE_UPDATE'}).then(audit => audit.entries.first())
-        let member = await newMember.guild.members.get(entry.executor.id);
-        if (member.user.bot) return // Бот не принимается!
-        if (!member.hasPermission("ADMINISTRATOR")){
-            if (antislivsp1.has(member.id)){
-                if (antislivsp2.has(member.id)){
-                    member.removeRoles(member.roles);
-                    return newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[ANTISLIV SYSTEM]\` <@${member.id}> \`подозревался в попытке слива. [3/3] Я снял с него роли. Пострадал:\` <@${newMember.id}>, \`сняли роль\` <@&${role.id}>`);
-                }else{
-                    newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[WARNING]\` <@${member.id}> \`подозревается в попытке слива!!! [2/3] Снятие роли\` <@&${role.id}> \`пользователю\` <@${newMember.id}>`)
-                    return antislivsp2.add(member.id);
-                }
-            }
-            newMember.guild.channels.find(c => c.name == "💫┃moder-chat").send(`\`[WARNING]\` <@${member.id}> \`подозревается в попытке слива!!! [1/3] Снятие роли\` <@&${role.id}> \`пользователю\` <@${newMember.id}>`)
-            return antislivsp1.add(member.id);
-        }
-        let spec_chat = await newMember.guild.channels.find(c => c.name == "💫┃moder-chat");
-        let question = await spec_chat.send(`<@${member.id}>, \`вы сняли роль\` <@&${role.id}> \`модератору\` <@${newMember.id}>\n\`Укажите причину снятия роли в новом сообщении!\``);
-        spec_chat.awaitMessages(response => response.member.id == member.id, {
-            max: 1,
-            time: 120000,
-            errors: ['time'],
-        }).then(async (answer) => {
-            question.delete().catch(() => {});
-            spec_chat.send(`\`[MODERATOR_DEL]\` \`${member.displayName} снял роль\` <@&${role.id}> \`модератору\` <@${newMember.id}>. \`Причина: ${answer.first().content}\``);
-            answer.first().delete().catch(() => {});
-        }).catch(async () => {
-            question.delete().catch(() => {});
-            spec_chat.send(`\`[MODERATOR_DEL]\` \`${member.displayName} снял роль\` <@&${role.id}> \`модератора\` <@${newMember.id}>. \`Причина: не указана.\``);
-        })
-    }
-});
-  
 bot.on("message", (message) => { 
     if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
     if(message.content == "s/test1")
@@ -420,4 +257,149 @@ bot.on("message", (message) => {
                }
              }
            });
+
+           bot.on('message', message => {
+            if (!message.guild) return;
+           if (message.content === "s/coinflip") {
+            let answers = ["**🦅 Выпал орёл 🦅**", "**💰 Решка 💰**", "**🎩 Ребро 🎩**"]; // Варианты ответов, которые будут выведены
+            let rand = Math.floor(Math.random()*answers.length); // Получаем рандомный ответ из предоставленных
+            message.channel.send(answers[rand]).then(msg => msg.delete(600000)); // Отправляем сообщение в чат
+            }
+    });
+
+    bot.on('message', message => {
+        if (!message.guild) return;
+    if (message.content.toLowerCase().startsWith(`s/bug`)) {
+        const args = message.content.slice('s/bug').split(/ +/);
+        if (!args[1]) {
+            message.reply(`\`привет! Для отправки отчета об ошибках используй: s/bug [текст]\``).then(message => message.delete(15000));
+            return message.delete()
+        }
+        let bugreport = args.slice(1).join(" ");
+        if (bugreport.length < 5 || bugreport.length > 1300) {
+            message.reply(`\`нельзя отправить запрос с длинной меньше 5 или больше 1300 символов!\``).then(message => message.delete(15000));
+            return message.delete()
+        }
+        let author_bot = message.guild.channels.find(c => c.name == "💫┃moder-chat");
+        if (!author_bot) {
+            message.reply(`\`я не смог отправить сообщение.. Канал модераторов не был найден.\``).then(message => message.delete(15000));
+            return message.delete()
+        }
+        author_bot.send(`**Пользователь <@${message.author.id}> \`(${message.author.id})\` отправил запрос с канала <#${message.channel.id}> \`(${message.guild.id})\`.**\n` +
+            `**Суть обращения:** \`${bugreport}\``);
+        message.reply(`\`хэй! Я отправил твое сообщение на рассмотрение дискорд мастеру!\``).then(message => message.delete(15000));
+        return message.delete();
+      }
+    });
+
+    bot.on('message', message => {
+        if (message.content === prefix + "8ball") {
+        let answers = ["✅ **Да** ✅", "❌ **Нет** ❌"];
+        let rand = Math.floor(Math.random()*answers.length);
+        message.channel.send(answers[rand]);
+        }
+      });
+
+      bot.on('message', message => {
+        if (!message.guild) return;
+      if (message.channel.id == '566345849412648971' || message.channel.id == '694811994217381958') {
+        if (message.author.bot) return
+        if (message.channel.type == "dm") return
+        if ((message.content.toLowerCase().includes('s/vote')) && message.channel.name == '🔰┃опросы') {
+        await message.react(`✅`);
+        await message.react(`❌`);
+        }
+        }
+    });
+
+    bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/hug`)) {
+        const args = message.content.slice(`s/hug`).split(/ +/)
+        if (!args[1]) return message.reply(`**воздух обнимать? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author}🙌 крепко обнял 🙌${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702236152794578994/3JYI.gif`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+      
+      bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/kiss`)) {
+        const args = message.content.slice(`s/kiss`).split(/ +/)
+        if (!args[1]) return message.reply(`**воздух целовать? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author} 👄 чмокнул 👄 ${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702238177875984464/image_860212161500558057658.gif`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+      
+      bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/pat`)) {
+        const args = message.content.slice(`s/pat`).split(/ +/)
+        if (!args[1]) return message.reply(`**воздух гладить? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author} 💫 погладил 💫 ${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702239595084906536/original.gif`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+      
+      bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/sex`)) {
+        const args = message.content.slice(`s/sex`).split(/ +/)
+        if (!args[1]) return message.reply(`**воздух насиловать? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author} занялся 🔞 ${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702241461571289178/12585519.jpg`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+      
+      bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/hit`)) {
+        const args = message.content.slice(`s/hit`).split(/ +/)
+        if (!args[1]) return message.reply(`**бить воздух? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author} 👊 ударил 👊 ${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702242476756566036/orig.gif`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+      
+      bot.on('message', message => {
+        if (!message.guild) return;
+        if (message.content.startsWith(`s/fight`)) {
+        const args = message.content.slice(`s/fight`).split(/ +/)
+        if (!args[1]) return message.reply(`**послать воздух? 😕**`).then(message => message.delete(10000));
+        let usr = message.guild.member(message.mentions.users.first());
+        if (!usr) return message.reply(`**ошибка, я не нашёл такого человека 😟**`).then(message => message.delete(10000));
+        message.channel.send(new Discord.RichEmbed()
+      .setDescription(`**${message.author} 🤬 послал 🤬 ${usr}**`)
+      .setImage(`https://cdn.discordapp.com/attachments/540540568011538478/702243756052840479/image_861107160610238778952.gif`)
+      .setColor("RANDOM"))
+      return message.delete()
+      }
+      });
+
 bot.login(process.env.BOT_TOKEN);
