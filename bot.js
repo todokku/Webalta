@@ -11,7 +11,6 @@ bot.on('message', message => {
          message.channel.send(pingembed).then(msg => msg.delete(600000));
       }
 });
-bot.login(process.env.BOT_TOKEN);
 
 
 bot.commands = new Discord.Collection();
@@ -421,3 +420,4 @@ bot.on("message", (message) => {
                }
              }
            });
+bot.login(process.env.BOT_TOKEN);
