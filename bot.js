@@ -16,8 +16,9 @@ bot.on('message', message => {
 bot.commands = new Discord.Collection();
 const fs = require('fs');
 bot.mutes = require('./mutes.json');
-let prefix = s/;
-let token = BOT_TOKEN
+ let config = require('./botconfig.json');
+ let token = config.token;
+let prefix = config.prefix;
 let profile = require('./profile.json');
 fs.readdir('./cmds/',(err,files)=>{
     if(err) console.log(err);
