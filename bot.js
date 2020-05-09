@@ -8,7 +8,6 @@ bot.on('message', message => {
        message.reply('pong');
        }
 });
-bot.login(process.env.BOT_TOKEN);
 
 bot.commands = new Discord.Collection();
 const fs = require('fs');
@@ -58,26 +57,6 @@ bot.on('ready', () => {
     }, 5000)
 });
 
-    bot.setInterval(()=>{
-        for(let i in bot.mutes){
-            let time = bot.mutes[i].time;
-            let guildid = bot.mutes[i].guild;
-            let guild = bot.guilds.get(guildid);
-            let member = guild.members.get(i);
-            let muteRole = member.guild.roles.find(r => r.name === "❌ Muted ❌"); 
-            if(!muteRole) continue;
-            if(Date.now()>= time){
-                member.removeRole(muteRole);
-                delete bot.mutes[i];
-                fs.writeFile('./mutes.json',JSON.stringify(bot.mutes),(err)=>{
-                    if(err) console.log(err);
-                });
-            }
-        }
-
-    },5000)
-});
-
 bot.on('message', message => {
     if (message.content === "s/help") {
       var help = new Discord.RichEmbed()
@@ -96,53 +75,6 @@ bot.on('message', message => {
     let role = member.guild.roles.find(r => r.name == '[💖] New user')
     await member.addRole(role.id)
   })
-
-  bot.on('ready', () => {
-    console.log("Серверы:")
-    bot.guilds.forEach((guild) => {
-    console.log(" - " + guild.name)
-    })
-  });
- 
-bot.on('message', async message => {
-    if(message.author.bot) return;
-    if(message.channel.type == "dm") return;
-    let uid = message.author.id;
-    bot.send = function (msg){
-        message.channel.send(msg);
-    };
-    if(!profile[uid]){
-        profile[uid] ={
-            coins:0,
-            warns:0,
-            xp:0,
-            lvl:0,
-        };
-    };
-    let u = profile[uid];
-
-    u.coins++;
-    u.xp++;
-
-    if(u.xp>= (u.lvl * 5)){
-        u.xp = 0;
-        u.lvl += 1;
-    };
-
-
-    fs.writeFile('./profile.json',JSON.stringify(profile),(err)=>{
-        if(err) console.log(err);
-    });
-
-    let messageArray = message.content.split(" ");
-    let command = messageArray[0].toLowerCase();
-    let args = messageArray.slice(1);
-    if(!message.content.startsWith(prefix)) return;
-    let cmd = bot.commands.get(command.slice(prefix.length));
-    if(cmd) cmd.run(bot,message,args);
-    bot.rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    bot.uId = message.author.id;
-});
 
 var mysql = require('mysql');
 console.log('[MYSQL] Подключение...');
@@ -420,3 +352,4 @@ bot.on("message", (message) => {
                }
              }
            });
+bot.login(process.env.BOT_TOKEN);
