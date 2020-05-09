@@ -10,7 +10,7 @@ bot.on('message', message => {
         .setTitle(`Ping ${bot.ping}ms pong :ping_pong:`)
          message.channel.send(pingembed).then(msg => msg.delete(600000));
       }
-});
+
 
 
 
@@ -30,8 +30,7 @@ fs.readdir('./cmds/',(err,files)=>{
         let props = require(`./cmds/${f}`);
         console.log(`Я выпил: ${i+1}.${f}`);
         bot.commands.set(props.help.name,props);
-    });
-});
+
 
 // /run message.channel.send('test')
 const developers = [
@@ -50,7 +49,7 @@ const developers = [
          message.reply(`**\`произошла ошибка: ${err.name} - ${err.message}\`**`);
         }
     }
-    });
+
     
 bot.on('ready', () => {
     console.log(`Выполнен вход как ${bot.user.username}`);
@@ -60,7 +59,7 @@ bot.on('ready', () => {
       bot.user.setActivity(`за Стиллерами\n                        👀`, { type: "WATCHING" });
       bot.user.setActivity('инструкции и приказы\n               (╯°□°）╯', { type: "LISTENING" });
     }, 5000)
-});
+
 
 bot.on('message', message => {
     if (message.content === "s/help") {
@@ -74,7 +73,7 @@ bot.on('message', message => {
        message.channel.send(help).then(msg => msg.delete(600000));
        return message.delete()
     }
-  });
+
 
   bot.on('guildMemberAdd', async member => { 
     let role = member.guild.roles.find(r => r.name == '[💖] New user')
@@ -88,11 +87,11 @@ database: 'stealer',
 host: "db4free.net", 
 user: "oliverstealer", 
 password: "qaz12345"
-});
+
 conn.connect(function(err) { 
 if (err) throw err; 
 console.log("[MYSQL] База данных подключена!");
-});
+
   
 bot.on("message", (message) => { 
     if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
@@ -101,13 +100,13 @@ bot.on("message", (message) => {
     message.reply('**❓ привет! Первый вопрос: что написано в правилах "Общие правила" под пунктом 8? ❓**');
     } 
     }
-    }); 
+
     bot.on("message", (message) => { 
         if(message.content == "t1 8. Токсики, можете выходить из сервера сразу")
     { 
     message.reply("**✅ молодец, правильно! Переходи к следующему вопросу при помощи команды** `s/test2` ✅");
     } 
-    }); 
+
   
     bot.on("message", (message) => { 
         if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
@@ -116,19 +115,18 @@ bot.on("message", (message) => {
       message.reply('**❓ разрешено ли флудить сообщениями? ❓**');
       } 
     }
-      }); 
+
       bot.on("message", (message) => { 
       if(message.content == "t2 нет")
       { 
       message.reply("**✅ правильно! Переходи к следующему вопросу при помощи команды** `s/test3` ✅");
       } 
-      }); 
-      bot.on("message", (message) => { 
+      });       bot.on("message", (message) => { 
         if(message.content == "t2 да")
         { 
         message.reply("**фу, флудер** 😢");
         } 
-        }); 
+
         
     bot.on("message", (message) => { 
     if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
@@ -137,25 +135,24 @@ bot.on("message", (message) => {
     message.reply('**❓ разрешено ли пиарить другие Discord сервера? ❓**');
     } 
       }
-    }); 
+
     bot.on("message", (message) => { 
     if(message.content == "t3 нет")
     { 
     message.reply("✅ **правильно! А теперь пропиши последнюю команду** `s/test4` ✅");
     } 
-    }); 
     bot.on("message", (message) => { 
       if(message.content == "t3 запрещено")
       { 
       message.reply("✅ **правильно! А теперь пропиши последнюю команду** `s/test4` ✅");
       } 
-    });
+
     bot.on("message", (message) => { 
     if(message.content == "t3 да")
     { 
     message.reply("**эй...пиар запрещён** ⛔");
     } 
-  });
+
   
    bot.on("message", (message) => { 
     if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
@@ -164,7 +161,7 @@ bot.on("message", (message) => {
     message.reply('**📨 молодец, все вопросы пройдены! Ожидай пока <@&566347941527420938> выдаст тебе доступ в остальным каналам 📨**');
     } 
       }
-    });
+
   
     bot.on('message', async (message) => {
       if (message.guild.id != '566345849412648971' && message.guild.id != '649274423605723163') return
@@ -177,7 +174,7 @@ bot.on("message", (message) => {
           await message.react(`✔`);
           await message.react(`✖`);
       }
-    });
+
 
     bot.on('message', async (message) => {
         if (message.author.bot) return
@@ -192,7 +189,7 @@ bot.on("message", (message) => {
           await message.react(`🎁`);
           message.clearReactions();
         }
-      }); 
+
     
       bot.on('message', message => {
         if (!message.guild) return;
@@ -202,7 +199,7 @@ bot.on("message", (message) => {
         return message.delete()
              }, 43200000)
            }
-        });
+
 
         bot.on('message', message => {
             if (!message.guild) return;
@@ -212,7 +209,7 @@ bot.on("message", (message) => {
             return message.delete()
                  }, 86400000)
                }
-            });
+
 
             bot.on('message', message => {
                 if (!message.guild) return;
@@ -223,6 +220,5 @@ bot.on("message", (message) => {
                   .setDescription('`Привет! Получить роль можно в нескольких каналах:\n|1| В канале` <#686269179359526979> `часто проходят розыгрыши на личные роли`\n`|2| В канале` <#605112700770713611> `есть множество ролей на выбор`')
               message.reply(embed).then(msg => msg.delete(600000));
                }
-             }
-           });
+                }
 bot.login(process.env.BOT_TOKEN);
