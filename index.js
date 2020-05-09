@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.on('ready', () => {
     console.log('I am ready!');
+bot.login(process.env.BOT_TOKEN);
 });
 bot.on('message', message => {
     if (message.content === 's/ping') {
@@ -401,5 +402,3 @@ bot.on("message", (message) => {
       return message.delete()
       }
       });
-
-bot.login(process.env.BOT_TOKEN);
