@@ -11,15 +11,12 @@ bot.on('message', message => {
          message.channel.send(pingembed).then(msg => msg.delete(600000));
       }
 });
-bot.login(process.env.BOT_TOKEN);
 
 
 bot.commands = new Discord.Collection();
 const fs = require('fs');
 bot.mutes = require('./mutes.json');
-let config = require('./botconfig.json');
-let token = config.token;
-let prefix = config.prefix;
+let prefix = s/;
 let profile = require('./profile.json');
 fs.readdir('./cmds/',(err,files)=>{
     if(err) console.log(err);
@@ -424,3 +421,6 @@ bot.on("message", (message) => {
                }
              }
            });
+           bot.login(process.env.BOT_TOKEN);
+
+//bot.login(token);
