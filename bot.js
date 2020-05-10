@@ -426,16 +426,16 @@ bot.on("message", (message) => {
              }
            });
 
-          bot.on('guildMemberAdd', message => {
-         if (!message.guild) return;
-         if (message.guild.id == '566345849412648971' || message.channel.id == '649274423605723163') {
-           // const embed = new Discord.RichEmbed()
-          // .setAuthor(`#4682B4`)
-          // .setDescription(`Привет! <:hello:693171056516530276>\nПрочитай текст в <#649274339052617749>\nЕсли у тебя в игре фамилия "Stealer", то просто упомяни <#492256216374837249>**`)
-             message.channel.send(`**<@${message.author.id}>, привет! <:hello:693171056516530276>\nПрочитай текст в <#649274339052617749>\nЕсли у тебя в игре фамилия "Stealer", то просто упомяни <#492256216374837249>**`)
-       //    message.channel.send(embed).then(msg => msg.delete(600000));
-         }
-              });
+                bot.on('guildMemberAdd', member => {
+                    const channel = member.guild.channels.find(ch => ch.name === '🎮┃тест');
+                    if (!channel) return;
+                   // channel.send(`${member}`);
+                   const embed = new Discord.RichEmbed()
+                   .setColor(`#4682B4`)
+                   .setDescription(`**Привет! <:hello:693171056516530276>\nПрочитай текст в <#649274339052617749>\nЕсли у тебя в игре фамилия "Stealer", то просто упомяни <#492256216374837249>**`)
+                    message.channel.send(embed).then(msg => msg.delete(600000));
+                    });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
