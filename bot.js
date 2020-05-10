@@ -436,6 +436,13 @@ bot.on("message", (message) => {
                   //  message.channel.send(embed).then(msg => msg.delete(600000));
                     });
 
+                     bot.on('message', message => {
+                     if (!message.guild) return;
+                     if (message.content.startsWith(`<@692472328801615893> тест`)) {
+                        message.channel.send("+++")
+                        }
+                    });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
