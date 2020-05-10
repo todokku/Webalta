@@ -434,7 +434,6 @@ bot.on("message", (message) => {
            message.reply(embed).then(msg => msg.delete(600000));
          }
               });
-
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
