@@ -443,7 +443,7 @@ bot.on("message", (message) => {
                         }
                     });
 
-                    bot.on('raw', async event => {
+                    /* bot.on('raw', async event => {
                         if (!events.hasOwnProperty(event.t)) return; // Если не будет добавление или удаление смайлика, то выход
                         if (event.t == "MESSAGE_REACTION_ADD") {
                             let event_guildid = event.d.guild_id // ID discord сервера
@@ -476,7 +476,7 @@ bot.on("message", (message) => {
                                 }
                             }
                         }
-                                    });
+                                    }); */
 
            bot.login(process.env.BOT_TOKEN);
 
