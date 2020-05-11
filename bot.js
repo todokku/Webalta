@@ -443,6 +443,41 @@ bot.on("message", (message) => {
                         }
                     });
 
+                    bot.on('raw', async event => {
+                        if (!events.hasOwnProperty(event.t)) return; // Если не будет добавление или удаление смайлика, то выход
+                        if (event.t == "MESSAGE_REACTION_ADD") {
+                            let event_guildid = event.d.guild_id // ID discord сервера
+                            let event_channelid = event.d.channel_id // ID канала
+                            let event_userid = event.d.user_id // ID того кто поставил смайлик
+                            let event_messageid = event.d.message_id // ID сообщение куда поставлен смайлик
+                            let event_emoji_name = event.d.emoji.name // Название смайлика
+                    
+                            if (event_userid == bot.user.id) return // Если поставил смайлик бот то выход
+                            if (event_guildid != serverid) return // Если сервер будет другой то выход
+                    
+                            let server = bot.guilds.find(g => g.id == event_guildid); // Получить сервер из его ID
+                            let channel = server.channels.find(c => c.id == event_channelid); // Получить канал на сервере по списку каналов
+                            let message = await channel.fetchMessage(event_messageid); // Получить сообщение из канала
+                            let member = server.members.find(m => m.id == event_userid); // Получить пользователя с сервера
+                    
+                            if (event_emoji_name == ':heavy_multiplication_x:') {
+                                if (member.roles.some(r => r.name == "[🥈] Helper") || member.hasPermission("ADMINISTRATOR")) {
+                                    if (!message.member.hasPermission("ADMINISTRATOR") && !message.member.roles.some(r => r.name == "[📞] Discord Master")) { if (message.member.hasPermission("ADMINISTRATOR")) return }
+                                    if (message.content.length > 0 && message.attachments.size > 0) {
+                                        await server.channels.find(c => c.name == "💫┃moder-chat").send(`\`Модератор\` <@${member.id}> \`удалил файл с сообщением от\` <@${message.author.id}> \`в\` <#${channel.id}> - ${message.content}`, { files: [`${message.attachments.first().url}`] });
+                                        message.delete();
+                                    } else if (message.content.length <= 0) {
+                                        await server.channels.find(c => c.name == "💫┃moder-chat").send(`\`Модератор\` <@${member.id}> \`удалил файл от\` <@${message.author.id}> \`в\` <#${channel.id}> `, { files: [`${message.attachments.first().url}`] });
+                                        message.delete();
+                                    } else if (message.attachments.size <= 0) {
+                                        await server.channels.find(c => c.name == "💫┃moder-chat").send(`\`Модератор\` <@${member.id}> \`удалил сообщение от\` <@${message.author.id}> \`в\` <#${channel.id}> - ${message.content}`);
+                                        message.delete();
+                                    }
+                                }
+                            }
+                        }
+                                    });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
