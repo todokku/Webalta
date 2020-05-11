@@ -460,7 +460,7 @@ bot.on("message", (message) => {
                             let message = await channel.fetchMessage(event_messageid); // Получить сообщение из канала
                             let member = server.members.find(m => m.id == event_userid); // Получить пользователя с сервера
                     
-                            if (event_emoji_name == ':heavy_multiplication_x:') {
+                            if (event_emoji_name == '🗑') {
                                 if (member.roles.some(r => r.name == "[🥈] Helper") || member.hasPermission("ADMINISTRATOR")) {
                                     if (!message.member.hasPermission("ADMINISTRATOR") && !message.member.roles.some(r => r.name == "[📞] Discord Master")) { if (message.member.hasPermission("ADMINISTRATOR")) return }
                                     if (message.content.length > 0 && message.attachments.size > 0) {
