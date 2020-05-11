@@ -56,7 +56,7 @@ bot.on('ready', () => {
     bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
         console.log(link);
         setInterval(() => {
-      bot.user.setActivity(`за Стиллерами\n                        👀`, { type: "WATCHING" });
+      bot.user.setActivity(`за Стиллерами 👀`, { type: "WATCHING" });
       bot.user.setActivity('инструкции и приказы\n               (╯°□°）╯', { type: "LISTENING" });
     }, 5000)
 });
@@ -160,7 +160,7 @@ if (err) throw err;
 console.log("[MYSQL] База данных подключена!");
 });
 
-bot.on('guildMemberUpdate', async (oldMember, newMember) => {
+/* bot.on('guildMemberUpdate', async (oldMember, newMember) => {
     if (newMember.guild.id != "566345849412648971") return // Сервер не 03!
     if (oldMember.roles.size == newMember.roles.size) return // Сменил ник или еще чет!
     if (newMember.user.bot) return // Бот не принимается!
@@ -245,7 +245,7 @@ bot.on('guildMemberUpdate', async (oldMember, newMember) => {
             spec_chat.send(`\`[MODERATOR_DEL]\` \`${member.displayName} снял роль\` <@&${role.id}> \`модератора\` <@${newMember.id}>. \`Причина: не указана.\``);
         })
     }
-});
+}); */
   
 bot.on("message", (message) => { 
     if (message.channel.id == '566345849412648971' || message.channel.id == '649274423605723163') {
