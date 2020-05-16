@@ -446,7 +446,7 @@ bot.on("message", (message) => {
 
                      bot.on('message', message => {
                      if (!message.guild) return;
-                     if (message.content.startsWith(`<@692472328801615893> тест`)) {
+                     if (message.content.startsWith(`@Webalta test`)) {
                         message.channel.send("+++")
                         }
                     });
