@@ -392,9 +392,6 @@ bot.on("message", (message) => {
         }
       }); 
     
-      const developers = [
-        492256216374837249,
-        ];
     bot.on('message', message => {
         if (!message.guild) return;
         if (message.guild.id != '566345849412648971' && message.channel.id != '706239180589760602') return
@@ -410,9 +407,6 @@ bot.on("message", (message) => {
            }
         });
 
-        const developers = [
-            492256216374837249,
-            ];
         bot.on('message', message => {
             if (!message.guild) return;
             if (message.guild.id != '566345849412648971' && message.channel.id != '706239180589760602') return
