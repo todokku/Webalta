@@ -451,7 +451,7 @@ bot.on("message", (message) => {
                    const embedd = new Discord.RichEmbed()
                    .setColor(`#4682B4`)
                    .setDescription(`**Привет! <:hello:693171056516530276>\nПрочитай текст в <#649274339052617749>\nЕсли у тебя в игре фамилия "Stealer", то просто упомяни <#492256216374837249>**`);
-                    message.channel.send(embedd).then(message => message.delete(600000));
+                    message.channel.send(embedd)//.then(message => message.delete(600000));
                     });
 
                      bot.on('message', message => {
