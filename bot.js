@@ -448,10 +448,13 @@ bot.on("message", (message) => {
                     const channel = member.guild.channels.find(ch => ch.name === '🎮┃тест');
                     if (!channel) return;
                    // channel.send(`${member}`);
+                   let textforobz = '`<@492256216374837249>, на сервер присоединился новый пользователь!`';
                    const embedd = new Discord.RichEmbed()
                    .setColor(`#4682B4`)
-                   .setDescription(`**Привет! <:hello:693171056516530276>\nПрочитай текст в <#649274339052617749>\nЕсли у тебя в игре фамилия "Stealer", то просто упомяни <#492256216374837249>**`);
-                   channel.send(embedd)//.then(message => message.delete(600000));
+                   .setDescription(`**<:hello:693171056516530276> Привет, ${member}! <:hello:693171056516530276>\n**`)
+                   .setThumbnail(`https://images-ext-2.discordapp.net/external/TAZTzELHkJEA8BUsl0qQ4QvnQbEcUS74ocRR2Hrk_As/%3Fwidth%3D321%26height%3D321/https/media.discordapp.net/attachments/283213366980509697/621277158811369472/Untitled2.gif`)
+                 // channel.send(embedd)//.then(message => message.delete(600000));
+                   channel.send(textforobz, {embed}).then(message => message.delete(600000));
                     });
 
                      bot.on('message', message => {
