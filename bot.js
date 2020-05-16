@@ -454,7 +454,7 @@ bot.on("message", (message) => {
                    .setDescription(`**<:hello:693171056516530276> Привет, ${member}! <:hello:693171056516530276>\n**`)
                    .setThumbnail(`https://images-ext-2.discordapp.net/external/TAZTzELHkJEA8BUsl0qQ4QvnQbEcUS74ocRR2Hrk_As/%3Fwidth%3D321%26height%3D321/https/media.discordapp.net/attachments/283213366980509697/621277158811369472/Untitled2.gif`)
                  // channel.send(embedd)//.then(message => message.delete(600000));
-                     channel.send(textforobz, {embedd}.then(message => message.delete(600000)));
+                    channel.send(textforobz, {embedd});
                     });
 
                      bot.on('message', message => {
