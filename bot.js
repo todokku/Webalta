@@ -518,15 +518,12 @@ bot.on("message", (message) => {
                                 })
                             } */
 
-/* let setembed_general = ["не указано", "не указано", "не указано", "не указано", "не указано", "не указано", "не указано"];
+let setembed_general = ["не указано", "не указано", "не указано", "не указано", "не указано", "не указано", "не указано"];
 let setembed_fields = ["нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет"];
 let setembed_addline = ["нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет", "нет"];
 
-
-//bot.on('message', message => {
-// const developers = ['492256216374837249']
- // if (!developers.some(dev => dev == message.author.id)) return
-  if (message.content.startsWith("/setup")) {
+bot.on('message',async (message) => {
+if (message.content.startsWith("/setup")) {
     let level_mod = 0;
     let db_server = bot.guilds.find(g => g.id == "632202420495056909", "632202420956692501", "712025701317869610");
     let db_parent = db_server.channels.find(c => c.name == 'db_users');
@@ -562,7 +559,7 @@ let setembed_addline = ["нет", "нет", "нет", "нет", "нет", "не�
     [2] - может выдавать права доступа на /embhelp
     ADMINISTRATOR само собой
     */
-   /* if (args[2] > 2 || args[2] < 0) {
+    if (args[2] > 2 || args[2] < 0) {
         message.reply(`\`укажи верный уровень доступа! '/setup [user] [уровень (0-2)]'\``)
         return message.delete();
     }
@@ -845,7 +842,7 @@ if (message.content == "/embsend") {
     message.channel.send(embed).catch(err => message.channel.send(`\`Хм.. Не получается. Возможно вы сделали что-то не так.\``));
     return message.delete();
 }
-//}); */
+});
 
            bot.login(process.env.BOT_TOKEN);
 
