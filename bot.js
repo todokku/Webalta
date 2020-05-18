@@ -498,6 +498,26 @@ bot.on("message", (message) => {
                         }
                                     }); */
 
+                            async function role_give() {
+                                setInterval(async () => {
+                                    let stealer_server = bot.guilds.get('566345849412648971')
+                                    if (!stealer_server) return console.log('Сервер Stealer не найден')
+                                    let admin_role = stealer.server.roles.find(r = r.name == '[🅰] Administration of Arizona RP');
+                                    let lider_role = stealer.server.roles.find(r => r.name == '[🚀] Лидак');
+                                    let zam_role = stealer.server.roles.find(r => r.name == '[💊] Девятка')
+                                    let server_were_admin = [];
+                                    let server_were_zam = [];
+                                    let server_were_lider = [];
+                                    let brainburg = user.guilds.get('282282840840732672');
+                                    let surprise = user.guilds.get('603603887668330496')
+                                    let info_chat = stealer.server.channels.find(c => c.name == 'test');
+                                    stealer_server.members.forEach(async (member) => {
+                                    await member.addRole(role.id) && message.reply('`вам была выдана роль [🅰] Administration of Arizona RP`');
+                                    await member.removeRole(role.id) && message.reply('`вам была снята роль [🅰] Administration of Arizona RP. Не является администратором на одном из серверов`')
+                                    },1000)
+                                })
+                            }
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
