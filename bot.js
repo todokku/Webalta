@@ -1085,6 +1085,7 @@ if (message.content == "/embsend") {
                  .setAuthor('Техническая поддержка', 'https://cdn.discordapp.com/attachments/540540568011538478/712022124071616512/LKDbJeM.gif')
                  .setColor(`#4682B4`)
                  .setDescription(`**<:hello:693171056516530276> Привет! <:hello:693171056516530276>\nДанный канал создан для обращения к <@&566347941527420938>\nЕсли у тебя есть вопросы или предложения по улучшению нашего Discord сервера, то просто напиши их сюда и я передам!**`)
+                 .setThumbnail('https://cdn.discordapp.com/attachments/540540568011538478/712654058271539280/discord_6.png')
                  .setImage('https://cdn.discordapp.com/attachments/540540568011538478/712022124071616512/LKDbJeM.gif')
                message.channel.send(embed);
             }
