@@ -865,6 +865,7 @@ if (message.content == "/embsend") {
 }
 });
 
+/*
 const support_settings = {
     "server_name": "Surprise", // Название сервера, будет в информации.
     "support_channel": "support", // Название канала для отправки обращений
@@ -1045,6 +1046,7 @@ function tickets_check() {
         });
     }, 40000);
 }
+*/
 
            bot.login(process.env.BOT_TOKEN);
 
