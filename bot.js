@@ -12,7 +12,7 @@ bot.on('ready', () => {
       }
 });*/
 
-// let serverid = "632202420495056909";
+ let serverid = "566345849412648971";
 
 bot.commands = new Discord.Collection();
 const fs = require('fs');
