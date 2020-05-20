@@ -865,7 +865,6 @@ if (message.content == "/embsend") {
 }
 });
 
-/*
 const support_settings = {
     "server_name": "Surprise", // Название сервера, будет в информации.
     "support_channel": "support", // Название канала для отправки обращений
@@ -918,18 +917,73 @@ function support_autoupdate() {
     }, 30000);
 }
 
-if(message.channel.name == 'support') {
-            message.delete()
-            i = 0
-        message.guild.createChannel(`ticket-${i++}`, 'text').then(async channel => {
-            channel.send(`${message.author} \`для модераторов\``)
-            let embeddd = new Discord.RichEmbed()
-                    .setColor("RANDOM")
-                    .setDescription(`**Новый тикет\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
-                    message.channel.send(embeddd)
-                await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
+bot.on('message', message => {
+    if (message.author.bot) return
+    if(message.channel.name == 'support') {
+      message.delete()
+      message.guild.createChannel(`ticket-${message.member.displayName}`, 'text').then(async channel => {
+      let moderator_role = await message.guild.roles.find(r => r.name == "Модератор Discord");
+        await channel.overwritePermissions(moderator_role, {
+          CREATE_INSTANT_INVITE: false,
+          MANAGE_CHANNELS: false,
+          MANAGE_ROLES: false,
+          MANAGE_WEBHOOKS: false,
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          SEND_TTS_MESSAGES: false,
+          MANAGE_MESSAGES: false,
+          EMBED_LINKS: true,
+          ATTACH_FILES: true,
+          READ_MESSAGE_HISTORY: true,
+          MENTION_EVERYONE: false,
+          USE_EXTERNAL_EMOJIS: false,
+          ADD_REACTIONS: false,
         })
-        }
+        await channel.overwritePermissions(message.member, {
+          CREATE_INSTANT_INVITE: false,
+          MANAGE_CHANNELS: false,
+          MANAGE_ROLES: false,
+          MANAGE_WEBHOOKS: false,
+          VIEW_CHANNEL: true,
+          SEND_MESSAGES: true,
+          SEND_TTS_MESSAGES: false,
+          MANAGE_MESSAGES: false,
+          EMBED_LINKS: true,
+          ATTACH_FILES: true,
+          READ_MESSAGE_HISTORY: true,
+          MENTION_EVERYONE: false,
+          USE_EXTERNAL_EMOJIS: false,
+          ADD_REACTIONS: false,
+        })  
+        await channel.overwritePermissions(message.guild.roles.find(r => r.name == "@everyone"), {
+          CREATE_INSTANT_INVITE: false,
+          MANAGE_CHANNELS: false,
+          MANAGE_ROLES: false,
+          MANAGE_WEBHOOKS: false,
+          VIEW_CHANNEL: false,
+          SEND_MESSAGES: false,
+          SEND_TTS_MESSAGES: false,
+          MANAGE_MESSAGES: false,
+          EMBED_LINKS: false,
+          ATTACH_FILES: false,
+          READ_MESSAGE_HISTORY: false,
+          MENTION_EVERYONE: false,
+          USE_EXTERNAL_EMOJIS: false,
+          ADD_REACTIONS: false,
+        })    
+      channel.send(`${message.author} \`для модераторов\` <@&${moderator_role.id}>`)
+        const embed = new Discord.RichEmbed() 
+              .setColor(settings.colour) 
+              .setDescription(`**Обращение к поддержке Discord\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
+              channel.send(embed)
+          let a_category = message.guild.channels.find(c => c.name == "Активные жалобы");
+          await channel.setParent(a_category.id);
+          await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
+          let reports = message.guild.channels.find(c => c.name == "🚫reports-log");
+          await reports.send(`\`[CREATE]\` <@${message.author.id}> \`создал обращение к поддержке:\` <#${channel.id}>`);
+    })
+    }
+    });
 
 function tickets_check() {
     setInterval(() => {
@@ -1046,7 +1100,6 @@ function tickets_check() {
         });
     }, 40000);
 }
-*/
 
            bot.login(process.env.BOT_TOKEN);
 
