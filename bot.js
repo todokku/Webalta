@@ -974,7 +974,7 @@ bot.on('message', message => {
         })    
       channel.send(`${message.author} \`для модераторов\` <@&${moderator_role.id}>`)
         const embed = new Discord.RichEmbed() 
-              .setColor(settings.colour) 
+              .setColor('#4682B4') 
               .setDescription(`**Обращение к поддержке Discord\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
               channel.send(embed)
           let a_category = message.guild.channels.find(c => c.name == "Активные жалобы");
