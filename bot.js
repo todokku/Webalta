@@ -986,6 +986,78 @@ bot.on('message', message => {
     }
     });
 
+bot.on('message', message => {
+if (message.content == '/hold'){
+  if (!message.member.hasPermission("MANAGE_ROLES")) return message.delete();
+  if (!message.channel.name.startsWith('ticket-')) return message.delete();
+  let r_category = message.guild.channels.find(c => c.name == "Жалобы на рассмотрении");
+  message.channel.setParent(r_category.id);
+  let memberid;
+   message.channel.permissionOverwrites.forEach(async perm => {
+    if (perm.type == `member`){
+      memberid = perm.id;
+    }
+  });
+  message.channel.send(`\`[STATUS]\` <@${memberid}>, \`вашей жалобе был установлен статус: 'На рассмотрении'. Источник: ${message.member.displayName}\``);
+  let reports = message.guild.channels.find(c => c.name == "🚫reports-log");
+  reports.send(`\`[HOLD]\` \`Модератор ${message.member.displayName} установил жалобе\` <#${message.channel.id}> \`статус 'На рассмотрении'.\``);
+ }
+});
+
+bot.on('message', message => {
+  if (message.content == '/active'){
+    if (!message.member.hasPermission("MANAGE_ROLES")) return message.delete();
+    if (!message.channel.name.startsWith('ticket-')) return message.delete();
+    let r_category = message.guild.channels.find(c => c.name == "Активные жалобы");
+    message.channel.setParent(r_category.id);
+    let memberid;
+     message.channel.permissionOverwrites.forEach(async perm => {
+      if (perm.type == `member`){
+        memberid = perm.id;
+      }
+    });
+    message.channel.send(`\`[STATUS]\` <@${memberid}>, \`вашей жалобе был установлен статус: 'В обработке'. Источник: ${message.member.displayName}\``);
+    let reports = message.guild.channels.find(c => c.name == "🚫reports-log");
+    reports.send(`\`[UNWAIT]\` \`Модератор ${message.member.displayName} убрал жалобе\` <#${message.channel.id}> \`статус 'На рассмотрении'.\``);
+   }
+});
+
+bot.on('message', message => {
+  if (message.content == '/close'){
+    if (!message.member.hasPermission("MANAGE_ROLES")) return message.delete();
+    if (!message.channel.name.startsWith('ticket-')) return message.delete();
+    let r_category = message.guild.channels.find(c => c.name == "Корзина");
+    message.channel.setParent(r_category.id);
+    let memberid;
+    message.channel.permissionOverwrites.forEach(async perm => {
+     if (perm.type == `member`){
+       memberid = perm.id;
+     }
+   });
+    message.channel.overwritePermissions(message.guild.members.find(m => m.id == memberid), {
+      // GENERAL PERMISSIONS
+      CREATE_INSTANT_INVITE: false,
+      MANAGE_CHANNELS: false,
+      MANAGE_ROLES: false,
+      MANAGE_WEBHOOKS: false,
+      // TEXT PERMISSIONS
+      VIEW_CHANNEL: true,
+      SEND_MESSAGES: false,
+      SEND_TTS_MESSAGES: false,
+      MANAGE_MESSAGES: false,
+      EMBED_LINKS: false,
+      ATTACH_FILES: false,
+      READ_MESSAGE_HISTORY: true,
+      MENTION_EVERYONE: false,
+      USE_EXTERNAL_EMOJIS: false,
+      ADD_REACTIONS: false,
+    }) 
+    message.channel.send(`\`[STATUS]\` <@${memberid}>, \`вашей жалобе был установлен статус: 'Закрыта'. Источник: ${message.member.displayName}\``);
+    let reports = message.guild.channels.find(c => c.name == "🚫reports-log");
+    reports.send(`\`[CLOSE]\` \`Модератор ${message.member.displayName} установил жалобе\` <#${message.channel.id}> \`статус 'Закрыта'.\``);
+   }
+});
+
 /* function tickets_check() {
     setInterval(() => {
         let server = bot.guilds.get(serverid);
