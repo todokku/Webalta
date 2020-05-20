@@ -990,7 +990,7 @@ if (message.content == "/embsend") {
                   USE_EXTERNAL_EMOJIS: false,
                   ADD_REACTIONS: false,
                 })    
-              channel.send(`${message.author} \`для дискорд мастера\` <@&${moderator_role.id}>`)
+              channel.send(`${message.author} \`для дискорд мастера\` <@492256216374837249>`)
                 const embed = new Discord.RichEmbed() 
                       .setColor('#4682B4') 
                       .setDescription(`**Обращение к поддержке Discord\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
