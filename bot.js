@@ -148,6 +148,7 @@ bot.on('message', async message => {
     bot.uId = message.author.id;
 });
 
+/*
 var mysql = require('mysql');
 console.log('[MYSQL] Подключение...');
 var conn = mysql.createConnection({ 
@@ -160,6 +161,7 @@ conn.connect(function(err) {
 if (err) throw err; 
 console.log("[MYSQL] База данных подключена!");
 });
+*/
 
 /* bot.on('guildMemberUpdate', async (oldMember, newMember) => {
     if (newMember.guild.id != "566345849412648971") return // Сервер не 03!
