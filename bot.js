@@ -925,7 +925,7 @@ if(message.channel.name == 'support') {
             let embeddd = new Discord.RichEmbed()
                     .setColor("RANDOM")
                     .setDescription(`**Новый тикет\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
-                    channel.send(embeddd)
+                    message.channel.send(embeddd)
                 await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
         })
         }
