@@ -864,6 +864,187 @@ if (message.content == "/embsend") {
 }
 });
 
+const support_settings = {
+    "server_name": "Surprise", // Название сервера, будет в информации.
+    "support_channel": "support", // Название канала для отправки обращений
+    "active-tickets": "Активные жалобы", // Категория активных жалоб
+    "hold-tickets": "Жалобы на рассмотрении", // Категория жалоб на рассмотрении
+    "close-tickets": "Корзина", // Категория закрытых жалоб
+    "moderator": ["Мл. Модератор Discord", "Модератор Discord"], // Модераторы отвечающие на жалобы (по умолчанию)
+    "administrators": ["❖ Администратор 3 ур. ❖", "❖ Администратор 4 ур. ❖"], // Дополнительные модераторы (администрация)
+    "log_channel": "reports", // Канал для логирования действий
+    "time_warning": 6000000, // Время напоминания активных жалоб (1 час - 6000000)
+    "time_deleted": 43200000, // Время удаления закрытых жалоб (24 часа - 86400000)
+    "notify_moderator_channel": "модераторы", // Канал напоминаний для модераторов
+    "notify_admin_channel": "🅰администрация", // Канал напоминаний для администрации
+    "full_dostup_support": ['492256216374837249'],
+};
+bot.on('message', async (message) => {
+    if (message.channel.type == "dm") return
+    if (message.guild.id != serverid) return
+    if (message.author.id == bot.user.id && !message.content.includes('Здравствуйте')) return
+});
+
+function support_autoupdate() {
+    setInterval(() => {
+        let server = bot.guilds.get(serverid);
+        if (!server) return
+        let channel = server.channels.find(c => c.name == support_settings["support_channel"]);
+        if (!channel) return
+        connection.query(`SELECT * FROM \`new-support\` WHERE \`server\` = '${server.id}'`, async (error, answer) => {
+            if (error) return console.error(error);
+            if (answer.length == 0) return
+            if (answer.length == 1) {
+                await channel.fetchMessage(answer[0].message).then(async support_message => {
+                    if (!support_message) return console.error(`При выводе support_message вылазит значение false`);
+                    await connection.query(`SELECT * FROM \`tickets-new\` WHERE \`server\` = '${server.id}'`, (error, res) => {
+                        if (error) return console.error(error);
+                        let open = res.filter(r => r.status == 1);
+                        let hold = res.filter(r => r.status == 2);
+                        let close = res.filter(r => r.status == 0);
+                        const image = new Discord.RichEmbed();
+                        image.setImage("https://imgur.com/k3KSG6e");
+                        support_message.edit('**Добро пожаловать, уважаемый пользователь Discord`a, ты попал в техническую поддержку\`Arizona Role Play Surprise**')
+                    });
+                }).catch(() => {
+                    console.error(`Не получилось найти сообщение в support. Ошибка.`);
+                });
+            } else {
+                return console.error(`Множество результатов в new-support.`);
+            }
+        });
+    }, 30000);
+}
+
+if(message.channel.name == 'support') {
+            message.delete()
+            i = 0
+        message.guild.createChannel(`ticket-${i++}`, 'text').then(async channel => {
+            channel.send(`${message.author} \`для модераторов\``)
+            let embed = new Discord.RichEmbed()
+                    .setColor("RANDOM")
+                    .setDescription(`**Новый тикет\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
+                    channel.send(embed)
+                await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
+        })
+        }
+
+function tickets_check() {
+    setInterval(() => {
+        let server = bot.guilds.get(serverid);
+        if (!server) return console.log(`Сервер не найден [error 661]`);
+        let active_tickets = server.channels.find(c => c.name == support_settings["active-tickets"]);
+        let close_tickets = server.channels.find(c => c.name == support_settings["close-tickets"]);
+        if (!active_tickets || !close_tickets) return console.log(`Канал тикетов не найден [error 662]`);
+        connection.query(`SELECT * FROM \`tickets-new\` WHERE \`server\` = '${server.id}'`, async (error, answer) => {
+            server.channels.forEach(async (ticket) => {
+                if (!ticket.name.startsWith('ticket-')) return
+                if (ticket.parentID == active_tickets.id) {
+                    ticket.fetchMessages({ limit: 1 }).then(messages => {
+                        let message = messages.first();
+                        let back_time = new Date().valueOf() - support_settings["time_warning"];
+                        if (message.createdAt.valueOf() < back_time) {
+                            if (message.author.bot && message.content == `\`[NOTIFICATION]\` \`Ваше обращение еще в обработке! На данный момент все модераторы заняты!\``) {
+                                let db_ticket = answer.find(_ticket => _ticket.ticket == ticket.name.split('ticket-')[1]);
+                                if (!db_ticket) return;
+                                let category = server.channels.find(c => c.name == support_settings["hold-tickets"]);
+                                let author = server.members.get(db_ticket.author);
+                                if (!category) return
+                                if (category.children.size >= 45) return
+                                connection.query(`UPDATE \`tickets-new\` SET \`status\` = '2' WHERE \`server\` = '${server.id}' AND \`ticket\` = '${ticket.name.split('ticket-')[1]}'`, async (error) => {
+                                    if (error) return console.error(error);
+                                    await ticket.setParent(category.id).catch((error) => {
+                                        if (error) console.error(`[SUPPORT] Произошла ошибка при установки категории каналу.`);
+                                        ticket.setParent(category.id);
+                                    });
+                                    if (author) {
+                                        ticket.send(`${author}, \`вашей жалобе был установлен статус: 'На рассмотрении'. Источник: Система\``);
+                                    } else {
+                                        ticket.send(`\`Данной жалобе [${message.channel.name}] был установлен статус: 'На рассмотрении'. Источник: Система\``);
+                                    }
+                                    let ticket_log = server.channels.find(c => c.name == support_settings["log_channel"]);
+                                    if (ticket_log) ticket_log.send(`\`[SYSTEM]\` \`Система за долгое отсутствие ответа установила жалобе\` <#${message.channel.id}> \`[${message.channel.name}] статус 'На рассмотрении'\``);
+                                });
+                            } else {
+                                ticket.send(`\`[NOTIFICATION]\` \`Ваше обращение еще в обработке! На данный момент все модераторы заняты!\``);
+                                let db_ticket = answer.find(_ticket => _ticket.ticket == ticket.name.split('ticket-')[1]);
+                                if (db_ticket.department == 0) {
+                                    let channel = server.channels.find(c => c.name == support_settings["notify_moderator_channel"]);
+                                    let role = server.roles.find(r => r.name == support_settings["moderator"]);
+                                    if (channel && role) {
+                                        channel.send(`\`[NOTIFICATION]\` \`Жалоба\` <#${ticket.id}> \`[${ticket.name}] активна! Пользователь ждет вашего ответа!\` ${role}`);
+                                    }
+                                } else if (db_ticket.department == 1) {
+                                    let channel = server.channels.find(c => c.name == support_settings["notify_admin_channel"]);
+                                    let administrators = [];
+                                    support_settings["administrators"].forEach(admin => {
+                                        let role = server.roles.find(r => r.name == admin);
+                                        administrators.push(`<@&${role.id}>`);
+                                    });
+                                    if (channel && administrators.length > 0) {
+                                        channel.send(`\`[NOTIFICATION]\` \`Жалоба\` <#${ticket.id}> \`[${ticket.name}] активна! Пользователь ждет вашего ответа!\` ${administrators.join(', ')}`);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (ticket.parentID == close_tickets.id) {
+                    let db_ticket = answer.find(_ticket => _ticket.ticket == ticket.name.split('ticket-')[1]);
+                    if (!db_ticket) return ticket.delete();
+                    ticket.fetchMessages({ limit: 1 }).then(async messages => {
+                        let message = messages.first();
+                        let back_time = new Date().valueOf() - support_settings["time_deleted"];
+                        if (message.createdAt.valueOf() < back_time) {
+                            let archive_messages = [];
+                            await ticket.fetchMessages({ limit: 100 }).then(async messages => {
+                                messages.forEach(async _message => {
+                                    _message.mentions.users.forEach(mention => {
+                                        let m_member = server.members.find(m => m.id == mention.id);
+                                        if (m_member) _message.content = _message.content.replace(`<@!${m_member.id}>`, `${m_member.displayName || m_member.user.tag} [${m_member.id}]`).replace(`<@${m_member.id}>`, `${m_member.displayName || m_member.user.tag}`);
+                                    });
+                                    _message.mentions.members.forEach(mention => {
+                                        let m_member = server.members.find(m => m.id == mention.id);
+                                        if (m_member) _message.content = _message.content.replace(`<@!${m_member.id}>`, `${m_member.displayName || m_member.user.tag} [${m_member.id}]`).replace(`<@${m_member.id}>`, `${m_member.displayName || m_member.user.tag}`);
+                                    });
+                                    _message.mentions.roles.forEach(mention => {
+                                        let m_role = server.roles.find(r => r.id == mention.id);
+                                        if (m_role) _message.content = _message.content.replace(`<@&${m_role.id}>`, `${m_role.name}`);
+                                    });
+                                    let date = new Date(+_message.createdAt.valueOf() + 10800000);
+                                    let formate_date = `[${date.getFullYear()}-` +
+                                        `${(date.getMonth() + 1).toString().padStart(2, '0')}-` +
+                                        `${date.getDate().toString().padStart(2, '0')} ` +
+                                        `${date.getHours().toString().padStart(2, '0')}-` +
+                                        `${date.getMinutes().toString().padStart(2, '0')}-` +
+                                        `${date.getSeconds().toString().padStart(2, '0')}]`;
+                                    if (!_message.embeds[0]) {
+                                        archive_messages.push(`${formate_date} ${_message.member.displayName || _message.member.user.tag}: ${_message.content}`);
+                                    } else {
+                                        archive_messages.push(`${formate_date} [К СООБЩЕНИЮ БЫЛО ДОБАВЛЕНО] ${_message.embeds[0].fields[1].value}`);
+                                        archive_messages.push(`${formate_date} [К СООБЩЕНИЮ БЫЛО ДОБАВЛЕНО] ${_message.embeds[0].fields[0].value}`);
+                                        archive_messages.push(`${formate_date} ${_message.member.displayName || _message.member.user.tag}: ${_message.content}`);
+                                    }
+                                });
+                            });
+                            let i = archive_messages.length - 1;
+                            while (i >= 0) {
+                                await fs.appendFileSync(`./${ticket.name}.txt`, `${archive_messages[i]}\r\n`);
+                                i--;
+                            }
+                            let ticket_log = server.channels.find(c => c.name == support_settings["log_channel"]);
+                            let author = server.members.get(db_ticket.author);
+                            if (ticket_log) await ticket_log.send(`\`[SYSTEM]\` \`Канал ${ticket.name} был удален. [24 часа в статусе 'Закрыт']\``, { files: [`./${ticket.name}.txt`] });
+                            if (author) await author.send(`\`[SYSTEM]\` \`Здравствуйте! Ваш вопрос ${ticket.name} был удален. Все сообщения были сохранены в файл.\``, { files: [`./${ticket.name}.txt`] }).catch(err => { console.error('Не могу отправить сообщение пользователю тикет: ' + ticket.name) });
+                            await ticket.delete();
+                            fs.unlinkSync(`./${ticket.name}.txt`);
+                        }
+                    });
+                }
+            });
+        });
+    }, 40000);
+}
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
