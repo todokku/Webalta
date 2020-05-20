@@ -638,6 +638,7 @@ if (message.content.startsWith("/setup")) {
     });
 }
 
+/*
 if (message.content == '/embhelp') {
     let level_mod = 0;
     let db_server = bot.guilds.find(g => g.id == "536042881039728660", "402516375966318603", "406526961817616395", "492256216374837249");
@@ -657,6 +658,16 @@ if (message.content == '/embhelp') {
     message.reply(`\`Команды для модерации: /embsetup, /embfield, /embsend - отправить.\``);
     return message.delete();
 }
+*/
+
+const args = message.content.slice(`/embhelp`).split(/ +/);
+    if (!args[1]) {
+        const embedd = new Discord.RichEmbed()
+        .setColor('#4682B4')
+        .setDescription('**Команды для инфомейкеров:**\n`/embhelp` **- то, что ты сейчас читаешь**\n`/embsetup` **- создать и настроить эмбед сообщение**\n`/embfield` **- настройка строки field [перед применением - тестирование]**\n`/embsend` **- отправить всё сообщение в канал**')
+        message.reply(embedd);
+        return message.delete()
+    }
 
 if (message.content.startsWith("/embsetup")) {
     let level_mod = 0;
