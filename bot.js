@@ -865,7 +865,7 @@ if (message.content == "/embsend") {
 }
 });
 
-const support_settings = {
+ /* const support_settings = {
     "server_name": "Surprise", // Название сервера, будет в информации.
     "support_channel": "support", // Название канала для отправки обращений
     "active-tickets": "Активные жалобы", // Категория активных жалоб
@@ -879,14 +879,15 @@ const support_settings = {
     "notify_moderator_channel": "модераторы", // Канал напоминаний для модераторов
     "notify_admin_channel": "🅰администрация", // Канал напоминаний для администрации
     "full_dostup_support": ['492256216374837249'],
-};
+}; */
+
 bot.on('message', async (message) => {
     if (message.channel.type == "dm") return
     if (message.guild.id != serverid) return
     if (message.author.id == bot.user.id && !message.content.includes('Здравствуйте')) return
 });
 
-function support_autoupdate() {
+/* function support_autoupdate() {
     setInterval(() => {
         let server = bot.guilds.get(serverid);
         if (!server) return
@@ -915,7 +916,7 @@ function support_autoupdate() {
             }
         });
     }, 30000);
-}
+} */
 
 bot.on('message', message => {
     if (message.author.bot) return
@@ -985,7 +986,7 @@ bot.on('message', message => {
     }
     });
 
-function tickets_check() {
+/* function tickets_check() {
     setInterval(() => {
         let server = bot.guilds.get(serverid);
         if (!server) return console.log(`Сервер не найден [error 661]`);
@@ -1099,7 +1100,7 @@ function tickets_check() {
             });
         });
     }, 40000);
-}
+} */
 
            bot.login(process.env.BOT_TOKEN);
 
