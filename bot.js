@@ -925,7 +925,7 @@ bot.on('message', message => {
               .setTitle('**Обращение к поддержке Discord**')
               .setDescription(`Пользователь: ${message.author}\nСуть обращения: ${message.content}**`)
               channel.send(embed)
-          let a_category = message.guild.channels.find(c => c.name == "✉┃Т И К Е Т Ы");
+          let a_category = message.guild.channels.find(c => c.name == "New tickets");
           await channel.setParent(a_category.id);
           await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
           let reports = message.guild.channels.find(c => c.name == "💙┃log-channel");
@@ -938,7 +938,7 @@ bot.on('message', message => {
 if (message.content == '/hold'){
   if (!message.member.hasPermission("MANAGE_ROLES")) return message.delete();
   if (!message.channel.name.startsWith('ticket-')) return message.delete();
-  let r_category = message.guild.channels.find(c => c.name == "✉┃Т И К Е Т Ы");
+  let r_category = message.guild.channels.find(c => c.name == "Тикеты на рассмотрении");
   message.channel.setParent(r_category.id);
   let memberid;
    message.channel.permissionOverwrites.forEach(async perm => {
