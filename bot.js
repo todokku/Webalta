@@ -1014,6 +1014,7 @@ if (message.content == "/embsend") {
                    message.channel.permissionOverwrites.forEach(async perm => {
                     if (perm.type == `member`){
                       memberid = perm.id;
+                    return message.delete()
                     }
                   });
                   message.channel.send(`\`[STATUS]\` <@${memberid}>, \`вашей жалобе был установлен статус: 'На рассмотрении'. Источник: ${message.member.displayName}\``);
@@ -1032,6 +1033,7 @@ if (message.content == "/embsend") {
                      message.channel.permissionOverwrites.forEach(async perm => {
                       if (perm.type == `member`){
                         memberid = perm.id;
+                        return message.delete()
                       }
                     });
                     message.channel.send(`\`[STATUS]\` <@${memberid}>, \`вашей жалобе был установлен статус: 'В обработке'. Источник: ${message.member.displayName}\``);
@@ -1050,6 +1052,7 @@ if (message.content == "/embsend") {
                     message.channel.permissionOverwrites.forEach(async perm => {
                      if (perm.type == `member`){
                        memberid = perm.id;
+                     return message.delete()
                      }
                    });
                     message.channel.overwritePermissions(message.guild.members.find(m => m.id == memberid), {
