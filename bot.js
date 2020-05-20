@@ -670,6 +670,13 @@ const args = message.content.slice(`/embhelp`).split(/ +/);
         return message.delete()
     }
 */
+    if (message.content === '/embhelp') {
+        var emb = new Discord.RichEmbed()
+        .setColor("#4682B4")
+        .setDescription('**Команды для инфомейкеров:**\n`/embhelp` **- то, что ты сейчас читаешь**\n`/embsetup` **- создать и настроить эмбед сообщение**\n`/embfield` **- настройка строки field [перед применением - тестирование]**\n`/embsend` **- отправить всё сообщение в канал**')
+         message.channel.send(emb)
+      }
+
 if (message.content.startsWith("/embsetup")) {
     let level_mod = 0;
     let db_server = bot.guilds.find(g => g.id == "632202420495056909", "632202420956692501", "712025701317869610");
