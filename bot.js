@@ -922,10 +922,10 @@ if(message.channel.name == 'support') {
             i = 0
         message.guild.createChannel(`ticket-${i++}`, 'text').then(async channel => {
             channel.send(`${message.author} \`для модераторов\``)
-            let embed = new Discord.RichEmbed()
+            let embeddd = new Discord.RichEmbed()
                     .setColor("RANDOM")
                     .setDescription(`**Новый тикет\nПользователь: ${message.author}\nСуть обращения: ${message.content}**`)
-                    channel.send(embed)
+                    channel.send(embeddd)
                 await message.channel.send(`<@${message.author.id}>, \`Тикет создан ===>\` <#${channel.id}>`).then(msg => msg.delete(15000))
         })
         }
