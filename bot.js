@@ -660,6 +660,7 @@ if (message.content == '/embhelp') {
 }
 */
 
+/*
 const args = message.content.slice(`/embhelp`).split(/ +/);
     if (!args[1]) {
         const embedd = new Discord.RichEmbed()
@@ -668,7 +669,7 @@ const args = message.content.slice(`/embhelp`).split(/ +/);
         message.reply(embedd);
         return message.delete()
     }
-
+*/
 if (message.content.startsWith("/embsetup")) {
     let level_mod = 0;
     let db_server = bot.guilds.find(g => g.id == "632202420495056909", "632202420956692501", "712025701317869610");
