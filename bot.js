@@ -1076,6 +1076,19 @@ if (message.content == "/embsend") {
                    }
                 });
 
+        bot.on('message', message => {
+            const developers = ['492256216374837249']
+            if (!developers.some(dev => dev == message.author.id)) return
+               if (message.content == '/support'){
+                message.delete('/support')
+                 const embed = new Discord.RichEmbed()
+                 .setColor(`#4682B4`)
+                 .setDescription(`**<:hello:693171056516530276> Привет! <:hello:693171056516530276>\nДанный канал создан для обращения к <@&566347941527420938>\nЕсли у тебя есть вопросы или предложения по улучшению нашего Discord сервера, то просто напиши их сюда и я передам!**`)
+                 .setImage('https://cdn.discordapp.com/attachments/540540568011538478/712022124071616512/LKDbJeM.gif')
+               message.channel.send(embed);
+            }
+          });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
