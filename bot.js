@@ -865,7 +865,7 @@ if (message.content == "/embsend") {
 }
 });
 
-bot.on('message', message => {
+/* bot.on('message', message => {
     if (message.author.bot) return
     if(message.channel.name == '🔐┃support') {
       message.delete()
@@ -932,7 +932,9 @@ bot.on('message', message => {
           await reports.send(`\`[CREATE]\` <@${message.author.id}> \`создал обращение к поддержке:\` <#${channel.id}>`);
     })
     }
-    });
+    }); */
+
+
 
 bot.on('message', message => {
 if (message.content == '/hold'){
