@@ -672,6 +672,8 @@ const args = message.content.slice(`/embhelp`).split(/ +/);
 */
     if (message.content === '/embhelp') {
         var emb = new Discord.RichEmbed()
+        .setThumbnail('https://cdn.discordapp.com/avatars/692472328801615893/6ec9cd2d8d2632d6fd6a76ac341d0e4f.png?size=2048')
+        .setTitle('**Команды для инфомейкеров:**')
         .setColor("#4682B4")
         .setDescription('**Команды для инфомейкеров:**\n`/embhelp` **- то, что ты сейчас читаешь**\n`/embsetup` **- создать и настроить эмбед сообщение**\n`/embfield` **- настройка строки field [перед применением - тестирование]**\n`/embsend` **- отправить всё сообщение в канал**')
          message.channel.send(emb)
