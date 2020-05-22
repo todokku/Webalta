@@ -10,7 +10,7 @@ module.exports.run = async (bot,message,args) => {
     }
 }; */
 
-let args = message.content.trim().split(/ +/g)
+let = message.content.trim().split(/ +/g)
             if (args[0].toLowerCase() === "p/8ball") {
                 message.delete('p/8ball')
                 if (!args[1]) return message.channel.send(":x: `[Ошибка] Ты забыл задать вопрос!` :x:").then(msg => msg.delete(10000));
