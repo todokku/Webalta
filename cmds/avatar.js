@@ -11,7 +11,7 @@ module.exports.run = async (bot,message,args) => {
     let embed = new Discord.RichEmbed()
     .setImage(mb.user.avatarURL)
     .setColor(color)
-    .setFooter("Аватар пользователя" + mb.user.tag);
+    .setFooter("Аватар пользователя " + mb.user.tag);
     message.reply({embed}).then(msg => msg.delete(600000));
   }
 };
