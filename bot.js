@@ -1111,6 +1111,33 @@ if (message.content == "/embsend") {
             }
           });
 
+          const config = {
+            voice: "628628154075840537", // ID голос. канала с которого будут создаваться приват каналы
+            parent: "628628154075840536" // ID категории
+          }
+          //Вместо инстансов GuildMember, используются инстансы VoiceState, что равносильно member.voice
+          bot.on("voiceStateUpdate", (oldState, newState) => {
+            if(!oldState.guild.channels.cache.has(config.voice) || !oldState.guild.channels.cache.has(config.voice)) throw Error('`[Ошибка] Не указано либо ID канала, либо ID категории`')
+            if(newState.channelID === config.voice) {
+              newState.guild.channels.create("Private", { // Имя привата
+                type: "VOICE",
+                parent: config.parent,
+                permissionOverwrites: [
+                  {
+                     id: newState.guild.id, //Права для роли @everyone
+                     allow: ["VIEW_CHANNEL"]
+                  },
+                  {
+                    id: newState.member.id, //Права для создателя канала
+                    allow: ["VIEW_CHANNEL", "MANAGE_CHANNELS"]
+                  }
+                ]
+              }).then(ch => newState.setChannel(ch))
+            }
+            //удаление канала, если в нем больше не осталось человек
+            if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === config.parent && oldState.channelID !== config.voice) oldState.channel.delete();
+          });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
