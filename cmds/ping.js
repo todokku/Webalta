@@ -3,6 +3,7 @@ const fs = require("fs");
 module.exports.run = async (bot,message,args) => {
   //  message.channel.send(`pong!`);
   if (message.content === "s/ping") {
+   message.delete('s/ping')
     var pingembed = new Discord.RichEmbed()
     .setColor("#4682B4")
     .setTitle(`Ping ${bot.ping}ms pong :ping_pong:`)
