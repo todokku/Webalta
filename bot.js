@@ -22,11 +22,11 @@ let profile = require('./profile.json');
 fs.readdir('./cmds/',(err,files)=>{
     if(err) console.log(err);
     let jsfiles = files.filter(f => f.split(".").pop() === "js");
-    if(jsfiles.length <=0) console.log("Коктейля намешай! У меня кончился, как и команды...");
-    console.log(`Многовато ты коктейля намешал! Я выпил ${jsfiles.length} бочек!`);
+    if(jsfiles.length <=0) console.log("У меня кончились команды");
+    console.log(`Я загрузил ${jsfiles.length} команд!`);
     jsfiles.forEach((f,i) =>{
         let props = require(`./cmds/${f}`);
-        console.log(`Я выпил: ${i+1}.${f}`);
+        console.log(`Загружен файл: ${i+1}.${f}`);
         bot.commands.set(props.help.name,props);
     });
 });
