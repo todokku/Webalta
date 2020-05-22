@@ -1092,6 +1092,7 @@ if (message.content == "/embsend") {
             }
           });
 
+/*
           bot.on('message', function (message) {
             if (!message.guild) return
             let args = message.content.trim().split(/ +/g)
@@ -1109,7 +1110,7 @@ if (message.content == "/embsend") {
                 message.channel.send(embed).then(msg => msg.delete(600000));
             }
           });
-
+*/
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
