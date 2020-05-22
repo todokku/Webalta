@@ -1111,7 +1111,7 @@ if (message.content == "/embsend") {
             }
           });
 
-          const configg = {
+      /*    const configg = {
             voice: "628628154075840537", // ID голос. канала с которого будут создаваться приват каналы
             parent: "628628154075840536" // ID категории
           }
@@ -1136,7 +1136,7 @@ if (message.content == "/embsend") {
             }
             //удаление канала, если в нем больше не осталось человек
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
-          });
+          }); */
 
            bot.login(process.env.BOT_TOKEN);
 
