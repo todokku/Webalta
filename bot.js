@@ -1104,7 +1104,7 @@ if (message.content == "/embsend") {
                 let embed = new Discord.RichEmbed()
                     .setAuthor(message.author.tag, message.author.displayAvatarURL)
                     .setColor("#4682B4")
-                    .addField("**Вопрос:**", question)
+                    .addField("**Вопрос:**",**question**)
                     .addField("**Ответ:**", answers[Math.floor(Math.random() * answers.length)])
                 message.channel.send(embed).then(msg => msg.delete(600000));
             }
