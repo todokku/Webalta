@@ -12,8 +12,6 @@ bot.on('ready', () => {
       }
 });*/
 
-// let serverid = "566345849412648971";
-
 bot.commands = new Discord.Collection();
 const fs = require('fs');
 bot.mutes = require('./mutes.json');
