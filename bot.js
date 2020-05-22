@@ -1092,6 +1092,23 @@ if (message.content == "/embsend") {
             }
           });
 
+          bot.on('message', function (message) {
+            if (!message.guild) return
+            let args = message.content.trim().split(/ +/g)
+          
+            if (args[0].toLowerCase() === "p/8ball") {
+                if (!args[1]) return message.channel.send(":x: `[Ошибка] Ты забыл задать вопрос!` :x:").then(msg => msg.delete(10000));
+                let answers = ["✅ **Да** ✅", "❌ **Нет** ❌", "👻 **Может быть** 👻"]
+                let question = args.slice(1).join(" ")
+                let embed = new Discord.RichEmbed()
+                    .setAuthor(message.author.tag, message.author.displayAvatarURL)
+                    .setColor("color")
+                    .addField("**Вопрос:**", question)
+                    .addField("**Ответ:**", answers[Math.floor(Math.random() * answers.length)])
+                message.channel.send(embed).then(msg => msg.delete(600000));
+            }
+          });
+
            bot.login(process.env.BOT_TOKEN);
 
 //bot.login(token);
