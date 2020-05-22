@@ -59,6 +59,7 @@ bot.on('ready', () => {
         setInterval(() => {
       bot.user.setActivity(`за Стиллерами 👀`, { type: "WATCHING" });
       bot.user.setActivity('инструкции и приказы\n               (╯°□°）╯', { type: "LISTENING" });
+      bot.user.setActivity('за командами s/help\n               ッ', { type: "WATCHING" });
     }, 5000)
 });
 
