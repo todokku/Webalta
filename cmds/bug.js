@@ -18,7 +18,7 @@ module.exports.run = async (bot,message,args) => {
         message.reply(`\`я не смог отправить сообщение.. Канал модераторов не был найден.\``).then(message => message.delete(15000));
         return message.delete()
     }
-    author_bot.send(`**Пользователь <@${message.author.id}> \`(${message.author.id})\` отправил запрос с канала <#${message.channel.id}> \`(${message.guild.id})\`.**\n` +
+    author_bot.send(`**Привет, <@492256216374837249>!\nПользователь: <@${message.author.id}> \`[(${message.author.id})]\` отправил запрос с канала <#${message.channel.id}> \`[(${message.guild.id})]\`.**\n` +
         `**Суть обращения:** \`${bugreport}\``);
     message.reply(`\`хэй! Я отправил твое сообщение на рассмотрение дискорд мастеру!\``).then(message => message.delete(15000));
     return message.delete();
