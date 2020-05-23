@@ -1,3 +1,4 @@
+/*
 const Discord = module.require("discord.js");
 const fs = require("fs");
 module.exports.run = async (bot,message,args) => {
@@ -16,4 +17,34 @@ module.exports.run = async (bot,message,args) => {
 };
 module.exports.help = {
     name: "serverinfo"
+};
+*/
+
+module.exports = (client, message, args) => {
+    const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
+    if (message.content.startsWith(`s/serverinfo`)) {
+        const args = message.content.slice(`s/serverinfo`).split(/ +/)
+    const embed = new Discord.RichEmbed()
+        .setAuthor(message.guild.name, message.guild.iconURL)
+        .setDescription(`⠀\n Сервер в Дискорде\n⠀`)
+        .addField('Разраб', message.guild.owner, true)
+        .addField('ID сервера', message.guild.id, true)
+        .addField('Защита', verifilv[message.guild.verificationLevel], true)
+        .addField('Регион', message.guild.region, true)
+        .addField('Участников', `[${message.guild.presences.size}] активных\n[${message.guild.members.filter(mem => mem.user.bot === true).size}] ботов\n[${message.guild.memberCount}] общее количество`, true)
+        .addField('Каналов', `[${message.guild.channels.filter(c => c.type == 'text').size}] текстовых\n[${message.guild.channels.filter(c => c.type == 'voice').size}] голосовых`, true)
+        .addField('Ролей', message.guild.roles.size, true)
+        .addField('Эмоций', message.guild.emojis.size, true)
+        .addField('Канал AFK', message.guild.afkChannel.name, true)
+        .setThumbnail(message.guild.iconURL)
+        .setTimestamp(new Date(message.guild.createdTimestamp))
+        .setFooter('Сервер создан')
+        .setColor('RANDOM')
+    message.delete(1000)
+    message.channel.send({ embed }).then(m => m.delete(120000));
+ bot.send(embed);
+    }
+};
+module.exports.help = {
+    name: 'serverinfo'
 };
