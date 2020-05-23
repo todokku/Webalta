@@ -25,18 +25,18 @@ const Discord = module.require('discord.js');
 module.exports.run = (bot, message, args) => {
     const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
     const embed = new Discord.RichEmbed()
-        .addField('Разраб', message.guild.owner, true)
-        .addField('ID сервера', message.guild.id, true)
-        .addField('Защита', verifilv[message.guild.verificationLevel], true)
-        .addField('Регион', message.guild.region, true)
-        .addField('Участников', `[${message.guild.presences.size}] активных\n[${message.guild.members.filter(mem => mem.user.bot === true).size}] ботов\n[${message.guild.memberCount}] общее количество`, true)
-        .addField('Каналов', `[${message.guild.channels.filter(c => c.type == 'text').size}] текстовых\n[${message.guild.channels.filter(c => c.type == 'voice').size}] голосовых`, true)
-        .addField('Ролей', message.guild.roles.size, true)
-        .addField('Эмоций', message.guild.emojis.size, true)
-        .addField('Канал AFK', 'доработка', true)
+        .addField('**Разработчик**', message.guild.owner, true)
+        .addField('**ID сервера**', message.guild.id, true)
+        .addField('**Защита**', verifilv[message.guild.verificationLevel], true)
+        .addField('**Регион**', message.guild.region, true)
+        .addField('**Участников**', `**[${message.guild.presences.size}] активных\n[${message.guild.members.filter(mem => mem.user.bot === true).size}] ботов\n[${message.guild.memberCount}] общее количество**`, true)
+        .addField('**Каналов**', `[${message.guild.channels.filter(c => c.type == 'text').size}] текстовых\n[${message.guild.channels.filter(c => c.type == 'voice').size}] голосовых`, true)
+        .addField('**Ролей**', message.guild.roles.size, true)
+        .addField('**Эмоций**', message.guild.emojis.size, true)
+        .addField('**Канал AFK**', 'доработка', true)
         .setTimestamp(new Date(message.guild.createdTimestamp))
         .setFooter('Сервер создан')
-        .setColor('RANDOM')
+        .setColor('#4682B4')
     message.delete(1000)
     message.channel.send({ embed }).then(m => m.delete(120000));
     };
