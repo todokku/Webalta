@@ -25,8 +25,6 @@ const Discord = module.require('discord.js');
 module.exports.run = (bot, message, args) => {
     const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
     const embed = new Discord.RichEmbed()
-       .setAuthor(message.guild.iconURL) // message.guild.name
-        .setDescription(`⠀\n Сервер в Дискорде\n⠀`)
         .addField('Разраб', message.guild.owner, true)
         .addField('ID сервера', message.guild.id, true)
         .addField('Защита', verifilv[message.guild.verificationLevel], true)
@@ -42,7 +40,6 @@ module.exports.run = (bot, message, args) => {
         .setColor('RANDOM')
     message.delete(1000)
     message.channel.send({ embed }).then(m => m.delete(120000));
- bot.send(embed);
     };
 
 module.exports.help = {
