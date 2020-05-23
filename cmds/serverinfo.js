@@ -20,10 +20,10 @@ module.exports.help = {
 };
 */
 
-module.exports = (bot, message, args) => {
+const Discord = module.require('discord.js');
+
+module.exports.run = (bot, message, args) => {
     const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
-    if (message.content.startsWith(`s/serverinfo`)) {
-        const args = message.content.slice(`s/serverinfo`).split(/ +/)
     const embed = new Discord.RichEmbed()
         .setAuthor(message.guild.name, message.guild.iconURL)
         .setDescription(`⠀\n Сервер в Дискорде\n⠀`)
@@ -43,8 +43,8 @@ module.exports = (bot, message, args) => {
     message.delete(1000)
     message.channel.send({ embed }).then(m => m.delete(120000));
  bot.send(embed);
-    }
-};
+    };
+
 module.exports.help = {
     name: 'serverinfo'
 };
