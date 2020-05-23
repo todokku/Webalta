@@ -2,7 +2,7 @@ const translate = require("translate"); //Модуль.
 const { RichEmbed } = require("discord.js") 
 const colors = "Цвет для имбеда" 
 translate.engine = "yandex"; // Можно указать и google, но тогда и API ключ надо будет другой.
-translate.key = "API Ключ." 
+translate.key = "trnsl.1.1.20200523T202442Z.bf83c8974cc1791e.c3d9a86ea82a4c7847f0f5f2b61646a4875b7523" 
 module.exports.run = async (bot, message, args) => {
   var args1 = message.content.toLowerCase().split(/ +/g); 
   let RU = ["ru", "русский", "russian"];
