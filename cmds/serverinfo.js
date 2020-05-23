@@ -35,7 +35,7 @@ module.exports.run = (bot, message, args) => {
         .addField('Каналов', `[${message.guild.channels.filter(c => c.type == 'text').size}] текстовых\n[${message.guild.channels.filter(c => c.type == 'voice').size}] голосовых`, true)
         .addField('Ролей', message.guild.roles.size, true)
         .addField('Эмоций', message.guild.emojis.size, true)
-        .addField('Канал AFK', message.guild.afkChannel.id, true)
+        .addField('Канал AFK', 'доработка', true)
         .setThumbnail(message.guild.iconURL)
         .setTimestamp(new Date(message.guild.createdTimestamp))
         .setFooter('Сервер создан')
