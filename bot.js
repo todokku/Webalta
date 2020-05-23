@@ -1138,30 +1138,6 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-const util = require('util');
-require('colors');
-
-const fns = { // Сохраняем старые функции
-	log: {
-		fn: console.log.bind(console),
-		prefix: '[Thread]'
-	},
-	error: {
-		fn: console.error.bind(console),
-		prefix: '[Error]'.red.bold,
-		color: 'yellow'
-	}
-}
-fns.info = fns.log; fns.debug = fns.log; fns.warn = fns.log;
-//Вы можете поставить свой префикс для этих функций, но они отличаются только в браузерном жс
-
-
-Object.keys(fns).forEach(f => {
-	console[f] = function(){
-		arguments[0] = util.format(fns[f].prefix, fns[f].color && "" [fns[f].color] != undefined ? arguments[0][fns[f].color] : arguments[0]) //Это тоже самое что и сложение строк но лучше
-		fns[f].fn.apply(console, arguments); //Запускаемых старую функцию
-	}
-})
 
            bot.login(process.env.BOT_TOKEN);
 
