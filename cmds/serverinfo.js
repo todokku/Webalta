@@ -20,7 +20,7 @@ module.exports.help = {
 };
 */
 
-module.exports = (client, message, args) => {
+module.exports = (bot, message, args) => {
     const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
     if (message.content.startsWith(`s/serverinfo`)) {
         const args = message.content.slice(`s/serverinfo`).split(/ +/)
