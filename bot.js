@@ -1138,24 +1138,6 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-          let http = require('http')
-          let url = 'http://www.reddit.com/'
-          
-          http.get(url, function(res){
-              var body = '';
-              res.on('data', function(chunk){
-                  body += chunk;
-              });
-              res.on('end', function(){
-          let { RichEmbed } = require('discord.js')
-                  var fbResponse = JSON.parse(body);
-                  message.channel.send(new RichEmbed()
-          .setImage(fbResponse.image)
-          .setColor('RANDOM')
-          )
-              });
-          })
-
 
            bot.login(process.env.BOT_TOKEN);
 
