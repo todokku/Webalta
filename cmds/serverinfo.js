@@ -25,7 +25,7 @@ const Discord = module.require('discord.js');
 module.exports.run = (bot, message, args) => {
     const verifilv = ['Отсутствует', 'Низкая', 'Средняя', 'Высокая', 'Очень высокая']
     const embed = new Discord.RichEmbed()
-        .setAuthor(message.guild.name, message.guild.iconURL)
+       .setAuthor(message.guild.iconURL) // message.guild.name
         .setDescription(`⠀\n Сервер в Дискорде\n⠀`)
         .addField('Разраб', message.guild.owner, true)
         .addField('ID сервера', message.guild.id, true)
