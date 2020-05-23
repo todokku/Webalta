@@ -10,7 +10,6 @@ module.exports.run = async(client, message, args) => {
         .setAuthor("Показатели бота")
         .setColor("#4682B4")
         .setThumbnail('https://discordemoji.com/assets/emoji/3619_discord_online.png')
-        .setTimestamp()
         .addField("⭕ | Использование памяти", `${(process.memoryUsage().heapUsed / (1000 * 1000)).toFixed(2)} MB`, true)
         .addField("🕑 | Uptime", `${duration}`, true)
         .addField("👥 | Пользователей", `${client.users.size.toLocaleString()}`, true)
