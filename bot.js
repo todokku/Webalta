@@ -1145,13 +1145,7 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-       module.exports = {
-         help: {
-            name: 'github',
-            aliases: [""],
-            description: "Поиск пользователя на github.",
-            enabled: true
-         },
+         
          run: async (bot, message, args) => {
          if(!args[0]) return; require("node-fetch")(`https://api.github.com/users/${args[0]}`).then(res => res.json()).then(json => {
          if(!json.login) return
