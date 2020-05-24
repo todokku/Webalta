@@ -681,6 +681,7 @@ const args = message.content.slice(`/embhelp`).split(/ +/);
       }
 
 if (message.content.startsWith("/embsetup")) {
+    message.delete(`/embsetup`)
     let level_mod = 0;
     let db_server = bot.guilds.find(g => g.id == "632202420495056909", "632202420956692501", "712025701317869610");
     let db_parent = db_server.channels.find(c => c.name == 'db_users');
@@ -698,52 +699,57 @@ if (message.content.startsWith("/embsetup")) {
     if (!message.member.hasPermission("ADMINISTRATOR") && +level_mod < 1) return
     const args = message.content.slice(`/embsetup`).split(/ +/);
     if (!args[1]) {
+        var embsetup = new Discord.RichEmbed()
+        .setDescription('**[Ошибка] Укажи, что хочешь установить / изменить\nНиже предоставлен список настроек**\n`|1|` **Название [setTitle]**\n`|2|` **Описание [setDescription]**\n`|3|` **Цвет [setColor] [пример: #4682B4]**\n`|4|` **Время [setTimeStamp]**\n`|5|` **Картинка [setImage]**\n`|6|` **Подпись [setFooter]**\n`|7|` **Картинка к подписи**')
         message.reply(`\`укажите, что вы установите! Ниже предоставлен список настроек.\`\n\`[1] - Название\`\n\`[2] - Описание\`\n\`[3] - Цвет [#FFFFFF]\`\n\`[4] - Время\`\n\`[5] - Картинка\`\n\`[6] - Подпись\`\n\`[7] - Картинка к подписи\``);
-        return message.delete();
+        message.channel.send(embsetup)
     }
     if (typeof (+args[1]) != "number") {
+        var number = new Discord.RichEmbed()
+        .setDescription('**Ты должен указать число**\n`/embsetup [число] [значение]`')
         message.reply(`\`вы должны указать число! '/embsetup [число] [значение]'\``);
-        return message.delete();
+        message.channel.send(number);
+        return message.delete()
     }
     if (!args[2]) {
-        message.reply(`\`значение отстутствует!\``);
+        message.reply(`**значение отстутствует!**`);
         return message.delete();
     }
     let cmd_value = args.slice(2).join(" ");
     if (+args[1] == 1) {
-        message.reply(`\`вы изменили заголовок с '${setembed_general[0]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили заголовок с '${setembed_general[0]}' на '${cmd_value}'**`)
         setembed_general[0] = cmd_value;
         return message.delete();
     } else if (+args[1] == 2) {
-        message.reply(`\`вы изменили описание с '${setembed_general[1]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили описание с '${setembed_general[1]}' на '${cmd_value}'**`)
         setembed_general[1] = cmd_value;
         return message.delete();
     } else if (+args[1] == 3) {
         if (!cmd_value.startsWith("#")) {
-            message.reply(`\`цвет должен начинаться с хештега. Пример: #FFFFFF - белый цвет!\``);
+            message.reply(`**цвет должен начинаться с хештега. Пример: #FFFFFF - белый цвет!**`);
             return message.delete();
         }
-        message.reply(`\`вы изменили цвет с '${setembed_general[2]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили цвет с '${setembed_general[2]}' на '${cmd_value}'!**`)
         setembed_general[2] = cmd_value;
         return message.delete();
     } else if (+args[1] == 4) {
         if (cmd_value != "включено" && cmd_value != "не указано") {
-            message.reply(`\`время имеет параметры 'включено' или 'не указано'!\``);
+            message.reply('**время имеет параметры** `включено` **или** `не указано`');
             return message.delete();
         }
-        message.reply(`\`вы изменили статус времени с '${setembed_general[3]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили статус времени с '${setembed_general[3]}' на '${cmd_value}'**`)
         setembed_general[3] = cmd_value;
         return message.delete();
     } else if (+args[1] == 5) {
-        message.reply(`\`вы изменили URL картинки с '${setembed_general[4]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили URL картинки с '${setembed_general[4]}' на '${cmd_value}'**`)
         setembed_general[4] = cmd_value;
         return message.delete();
     } else if (+args[1] == 6) {
-        message.reply(`\`вы изменили подпись с '${setembed_general[5]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили подпись с '${setembed_general[5]}' на '${cmd_value}'**`)
         setembed_general[5] = cmd_value;
         return message.delete();
     } else if (+args[1] == 7) {
-        message.reply(`\`вы изменили URL аватарки подписи с '${setembed_general[6]}' на '${cmd_value}'!\``)
+        message.reply(`**вы изменили URL аватарки подписи с '${setembed_general[6]}' на '${cmd_value}'**`)
         setembed_general[6] = cmd_value;
         return message.delete();
     }
