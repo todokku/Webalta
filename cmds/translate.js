@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
     translate(text, { from: "ru", to: "en" }).then(text2 => { //Переводим с RU на EN
       message.channel.send(
       new RichEmbed()
-      .setColor(colors)
+      .setColor(`#4682B4`)
       .addField("Перевод с русского на английского:", text2)
       )
     });
@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     translate(text, { from: "en", to: "ru" }).then(text => { //Тоже самое, но наоборот.
       message.channel.send(
       new RichEmbed()
-      .setColor(colors)
+      .setColor(`#4682B4`)
       .addField("Перевод с английского на русский:", text)
       )
     });
