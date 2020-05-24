@@ -1,6 +1,5 @@
 module.exports.run = async (Discord, bot, message, args) => {
-        const developers = ['492256216374837249']
-        if (!developers.some(dev => dev == message.author.id)) return message.channel.send("Ты не мой хозяин((")
+    if (message.author.id != "492256216374837249") return message.channel.send("Ты не мой хозяин((")
     if (!args[0]) return message.channel.send("А де название команды?")
    
     let commandName = args[0].toLowerCase()
