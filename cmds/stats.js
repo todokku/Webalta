@@ -7,7 +7,6 @@ module.exports.run = async(client, message, args) => {
     const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
     const embed = new Discord.RichEmbed()
-        .setAuthor("Показатели бота")
         .setColor("#4682B4")
         .setThumbnail('https://discordemoji.com/assets/emoji/3619_discord_online.png')
         .addField("**⭕ | Использование памяти**", `${(process.memoryUsage().heapUsed / (1000 * 1000)).toFixed(2)} MB`, true)
