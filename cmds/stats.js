@@ -10,13 +10,13 @@ module.exports.run = async(client, message, args) => {
         .setAuthor("Показатели бота")
         .setColor("#4682B4")
         .setThumbnail('https://discordemoji.com/assets/emoji/3619_discord_online.png')
-        .addField("⭕ | Использование памяти", `${(process.memoryUsage().heapUsed / (1000 * 1000)).toFixed(2)} MB`, true)
-        .addField("🕑 | Uptime", `${duration}`, true)
-        .addField("👥 | Пользователей", `${client.users.size.toLocaleString()}`, true)
-        .addField("🌐 | Серверов", `${client.guilds.size.toLocaleString()}`, true)
-        .addField("🗨 | Каналов", `${client.channels.size.toLocaleString()}`, true)
-        .addField("⚙ | Кол-во команд", `${client.commands.size.toLocaleString()}`, true)
-        .addField("💡 | Discord.js", `v${version}`, true)
+        .addField("**⭕ | Использование памяти**", `${(process.memoryUsage().heapUsed / (1000 * 1000)).toFixed(2)} MB`, true)
+        .addField("**🕑 | Uptime**", `${duration}`, true)
+        .addField("**👥 | Пользователей**", `${client.users.size.toLocaleString()}`, true)
+        .addField("**🌐 | Серверов**", `${client.guilds.size.toLocaleString()}`, true)
+        .addField("**🗨 | Каналов**", `${client.channels.size.toLocaleString()}`, true)
+        .addField("**⚙ | Кол-во команд**", `${client.commands.size.toLocaleString()}`, true)
+        .addField("**💡 | Discord.js**", `v${version}`, true)
  
     message.channel.send(embed);
 };
