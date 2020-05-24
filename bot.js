@@ -700,9 +700,10 @@ if (message.content.startsWith("/embsetup")) {
     const args = message.content.slice(`/embsetup`).split(/ +/);
     if (!args[1]) {
         var embsetup = new Discord.RichEmbed()
-        .setDescription('**[Ошибка] Укажи, что хочешь установить / изменить\nНиже предоставлен список настроек**\n`|1|` **Название [setTitle]**\n`|2|` **Описание [setDescription]**\n`|3|` **Цвет [setColor] [пример: #4682B4]**\n`|4|` **Время [setTimeStamp]**\n`|5|` **Картинка [setImage]**\n`|6|` **Подпись [setFooter]**\n`|7|` **Картинка к подписи**')
-        message.reply(`\`укажите, что вы установите! Ниже предоставлен список настроек.\`\n\`[1] - Название\`\n\`[2] - Описание\`\n\`[3] - Цвет [#FFFFFF]\`\n\`[4] - Время\`\n\`[5] - Картинка\`\n\`[6] - Подпись\`\n\`[7] - Картинка к подписи\``);
-        message.channel.send(embsetup)
+        .setColor('#4682B4')
+        .setThumbnail('https://cdn.discordapp.com/avatars/692472328801615893/6ec9cd2d8d2632d6fd6a76ac341d0e4f.png?size=2048')
+        .setDescription('**Укажи, что хочешь установить\nНиже предоставлен список настроек**\n`|1|` **Название** `[setTitle]`\n`|2|` **Описание** `[setDescription]`\n`|3|` **Цвет** `[setColor] [пример: #4682B4]`\n`|4|` **Время** `[setTimeStamp]`\n`|5|` **Картинка** `[setImage]`\n`|6|` **Подпись** `[setFooter]`\n`|7|` **Картинка к подписи**')
+        message.reply(embsetup)
     }
     if (typeof (+args[1]) != "number") {
         var number = new Discord.RichEmbed()
