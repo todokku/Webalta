@@ -702,7 +702,7 @@ if (message.content.startsWith("/embsetup")) {
         var embsetup = new Discord.RichEmbed()
         .setColor('#4682B4')
         .setThumbnail('https://cdn.discordapp.com/avatars/692472328801615893/6ec9cd2d8d2632d6fd6a76ac341d0e4f.png?size=2048')
-        .setDescription('**Укажи, что хочешь установить\nНиже предоставлен список настроек**\n`|1|` **Название** `[setTitle]`\n`|2|` **Описание** `[setDescription]`\n`|3|` **Цвет** `[setColor] [пример: #4682B4]`\n`|4|` **Время** `[setTimeStamp]`\n`|5|` **Картинка** `[setImage]`\n`|6|` **Подпись** `[setFooter]`\n`|7|` **Картинка к подписи**')
+        .setDescription('**Укажи, что хочешь установить\nНиже предоставлен список настроек**\n\n`|1|` **Название** `[setTitle]`\n`|2|` **Описание** `[setDescription]`\n`|3|` **Цвет** `[setColor] [пример: #4682B4]`\n`|4|` **Время** `[setTimeStamp]`\n`|5|` **Картинка** `[setImage]`\n`|6|` **Подпись** `[setFooter]`\n`|7|` **Картинка к подписи**')
         message.reply(embsetup)
     }
     if (typeof (+args[1]) != "number") {
