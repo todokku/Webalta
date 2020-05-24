@@ -68,9 +68,9 @@ console.log(`Выполнен вход как ${bot.user.username}`);
     var i = 0;
        var timer = bot.setInterval(function () {    
            var gamePresence = [`за Стиллерами 👾`,`инструкции и приказы 👻`,`за командами s/help 👀`];
-          bot.user.setPresence({ game: { name: gamePresence[i%gamePresence.length], type: 2 } });
+          bot.user.setPresence({ game: { name: gamePresence[i%gamePresence.length], type: 3 } });
            i++;
-       },7500)
+       },5000)
    });
 
     bot.setInterval(()=>{
