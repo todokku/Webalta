@@ -15,7 +15,7 @@ winnerCount = Number(messageArray[1]);
 time = Number(messageArray[2]);
 
 
-var giveEmbed = new Discord.MessageEmbed();
+var giveEmbed = new Discord.RichEmbed()
 giveEmbed.setTitle("🎉 Розыгрыш 🎉");
 giveEmbed.setDescription(`\n**Приз: ${item}** \n\n**Создал розыгрыш: ${message.author}**`)
 let embedSent = await message.channel.send(giveEmbed);
@@ -39,7 +39,7 @@ var peopleReacted = reactFetch.users.cache.array().filter(us => !us.bot);
        if(!winners[i]) continue
     winnerMsg += ('<' + '@' + winners[i] + '>' + " ");
   }
-  var Embed = new Discord.MessageEmbed();
+  var Embed = new Discord.RichEmbed()
   Embed.setTitle("🎉 Розыгрыш завершён! 🎉")
   Embed.setColor(bot.color)
   Embed.setDescription(`**${winnerMsg} выиграл(и) ${item}**`)
