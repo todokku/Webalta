@@ -1158,7 +1158,7 @@ if (message.content == "/embsend") {
          bot.send(embed)
          })   
         }
-       }
+       
 
            bot.login(process.env.BOT_TOKEN);
 
