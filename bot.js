@@ -1161,7 +1161,7 @@ if (message.content == "/embsend") {
         if(message.channel.name == '🧡┃тест-ботов')
             let ready = new Discord.RichEmbed()
             .setColor('#4682B4')
-            .setDescription('**Я проснувся**') //&& message.channel.name == '🧡┃тест-ботов'
+            .setDescription('**Я проснувся**')
             message.channel.send(ready);
     });
 
