@@ -1158,7 +1158,7 @@ if (message.content == "/embsend") {
           }); */
 
        bot.on("ready", message => {
-        if (message.channel.id == '566345849412648971' || message.channel.id == '695741101491093615') {
+        if (message.guild.id == '566345849412648971' || message.channel.id == '695741101491093615') {
             let ready = new Discord.RichEmbed()
             .setColor('#4682B4')
             .setDescription('**Я проснувся**')
