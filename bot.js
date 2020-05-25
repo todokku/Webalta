@@ -1157,13 +1157,6 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-       bot.on("ready", message => {
-        if(message.channel.name == '🧡┃тест-ботов')
-            const embeed = new Discord.RichEmbed()
-            .setColor('#4682B4')
-            .setDescription('**Я проснувся**')
-            message.channel.send(embeed);
-    });
 
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
