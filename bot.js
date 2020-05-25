@@ -1157,7 +1157,6 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-function printNumbersInterval() {message.delete();message.channel.send(`Стреляю!`).then(msg => {let m = `︻◦◤══一`;var i = 1;var timerId = setInterval(function() {msg.edit(m);if (i == 8){ clearInterval(timerId);msg.edit('Стрельба окончена!');msg.delete(3*1000)};i++;m+=`=`;}, 2*1000);})}printNumbersInterval();
          
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
