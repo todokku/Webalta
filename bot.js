@@ -1157,20 +1157,24 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
+   let prefixis = JSON.parse(fs.readFileSync("./guild.json", "utf8"));
+       if(!prefixis[message.guild.id]){
+              prefixis[message.guild.id] ={
+                 prefix: "."
+         };
+      };
+     fs.writeFile("./guild.json", JSON.stringify(prefixis), (err) => {
+           if (err) console.log(err)
+         });
+      let prefix = prefixis[message.guild.id].prefix;
+      let messageArray = message.content.split(" ");
+      let cmd = messageArray[0];
+      const args = message.content.slice(prefix.length).trim().split(/ +/g);
+      const command = args.shift().toLowerCase();
+      let commandfile = bot.commands.get(cmd.slice(prefix.length));
+      if(commandfile) commandfile.run(bot,message,args);
          
-         run: async (bot, message, args) => {
-         if(!args[0]) return; require("node-fetch")(`https://api.github.com/users/${args[0]}`).then(res => res.json()).then(json => {
-         if(!json.login) return
-         let embed = new Discord.RichEmbed()
-         .setColor('#4682B4') // Замените на свой цвет.
-         .setAuthor(args[0], json.avatar_url, json.html_url)
-         .setDescription(`Имя: ${json.name ? json.name : "Не найдено."} | ${json.company ? json.company : "Компании нет."}\nБиография: ${json.bio ? json.bio : "Нет."}`)
-         .addField('Статистика:', `Кол-во открытых репозиторий: ${json.public_repos} | Гистов: ${json.public_gists}\nПодписок: ${json.following} | Подписчиков: ${json.followers}`)
-         if(json.blog){ embed.addField('_ _', `[Блог](${json.blog}) | [Ссылка на профиль](${json.html_url})`)}
-         bot.send(embed)
-         })   
-        }
-       
+bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
            bot.login(process.env.BOT_TOKEN);
 
