@@ -1158,14 +1158,12 @@ if (message.content == "/embsend") {
           }); */
 
        bot.on("ready", message => {
-        if (message.guild.id == '566345849412648971' || message.channel.id == '695741101491093615') {
             let ready = new Discord.RichEmbed()
             .setColor('#4682B4')
-            .setDescription('**Я проснувся**')
+            .setDescription('**Я проснувся**') && message.channel.name == '🧡┃тест-ботов'
             message.channel.send(ready);
-        }
     });
-         
+
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
            bot.login(process.env.BOT_TOKEN);
