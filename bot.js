@@ -1159,10 +1159,10 @@ if (message.content == "/embsend") {
 
        bot.on("ready", message => {
         if(message.channel.name == '🧡┃тест-ботов')
-            let embed = new Discord.RichEmbed()
+            const embeed = new Discord.RichEmbed()
             .setColor('#4682B4')
             .setDescription('**Я проснувся**')
-            message.channel.send(embed);
+            message.channel.send(embeed);
     });
 
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
