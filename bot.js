@@ -17,7 +17,7 @@ const fs = require('fs');
 bot.mutes = require('./mutes.json');
  let config = require('./botconfig.json');
  let token = config.token;
-//let prefix = config.prefix;
+let prefix = config.prefix;
 let profile = require('./profile.json');
 fs.readdir('./cmds/',(err,files)=>{
     if(err) console.log(err);
@@ -1157,22 +1157,7 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
-   let prefixis = JSON.parse(fs.readFileSync("./guild.json", "utf8"));
-       if(!prefixis[message.guild.id]){
-              prefixis[message.guild.id] ={
-                 prefix: "."
-         };
-      };
-     fs.writeFile("./guild.json", JSON.stringify(prefixis), (err) => {
-           if (err) console.log(err)
-         });
-      let prefix = prefixis[message.guild.id].prefix;
-      let messageArray = message.content.split(" ");
-      let cmd = messageArray[0];
-      const args = message.content.slice(prefix.length).trim().split(/ +/g);
-      const command = args.shift().toLowerCase();
-      let commandfile = bot.commands.get(cmd.slice(prefix.length));
-      if(commandfile) commandfile.run(bot,message,args);
+
          
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
