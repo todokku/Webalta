@@ -1157,6 +1157,14 @@ if (message.content == "/embsend") {
             if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
           }); */
 
+       bot.on("ready", message => {
+        if (message.channel.id == '566345849412648971' || message.channel.id == '695741101491093615') {
+            let ready = new Discord.RichEmbed()
+            .setColor('#4682B4')
+            .setDescription('**Я проснувся**')
+            message.channel.send(ready);
+        }
+    });
          
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
