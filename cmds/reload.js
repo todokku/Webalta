@@ -3,9 +3,9 @@ const fs = require("fs");
 
 module.exports.run = async (bot,message,args) => {
 
-    if(message.author.id != "492256216374837249") return message.channel.send("Ты не хозяин бота((")
+    if(message.author.id != "492256216374837249") return message.channel.send('`[Ошибка] Ты не хозяин бота` 🤨')
 
-    if(!args[0]) return message.channel.send("Ты не указал команду для перезагрузки!")
+    if(!args[0]) return message.channel.send('`[Ошибка] Ты не указал команду для перезагрузки`')
 
     let commandName = args[0].toLowerCase()
 
@@ -15,10 +15,10 @@ module.exports.run = async (bot,message,args) => {
         const pull = require(`./${commandName}.js`)
         bot.commands.set(commandName, pull)
     } catch(e) {
-        return message.channel.send(`Комманда: \`${args[0].toUpperCase()}\` не найдена!`)
+        return message.channel.send(`**[Ошибка] Команда: \`${args[0].toUpperCase()}\` не найдена!**`)
     }
 
-    message.channel.send(`Комманда \`${args[0].toUpperCase()}\` была перезагружена!`)
+    message.channel.send(`**[ACCEPT] Команда \`${args[0].toUpperCase()}\` была перезагружена!**`)
 
     }
 
