@@ -1137,8 +1137,8 @@ if (message.content == "/embsend") {
             game: 'OSU!',
             name: 'осу'
         },{
-            game: 'Visual Studio Code',
-            name: 'Я так понимаю кодер'
+            game: 'Grand Theft Auto San Andreas',
+            name: 'Я так понимаю сампер'
             //просто крч перед настройками ставьте },{
         }]
         bot.on('presenceUpdate', member => {
