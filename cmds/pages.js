@@ -57,13 +57,20 @@ exports.run = (bot,message,args) => {
     .setFooter(`Страница ${page}`) 
   //  .setDescription(`тест 1 pages[page-1]`)
   message.channel.send(embed).then(msg => { 
-    msg.react('⏪').then( r => { 
-      msg.react('⏩') 
-      const backwardsFilter = (reaction, user) => reaction.emoji.name === '⏪' && user.id === message.author.id;
-      const forwardsFilter = (reaction, user) => reaction.emoji.name === '⏩' && user.id === message.author.id;
-      const backwards = msg.createReactionCollector(backwardsFilter, { time: 60000 }); 
-      const forwards = msg.createReactionCollector(forwardsFilter, { time: 60000 });
-      backwards.on('collect', r => { 
+    msg.react('1️⃣').then( r => { 
+      msg.react('2️⃣').then( r => { 
+        msg.react('3️⃣').then( r => { 
+          msg.react('4️⃣')
+      const f1 = (reaction, user) => reaction.emoji.name === '1️⃣' && user.id === message.author.id;
+      const f2 = (reaction, user) => reaction.emoji.name === '2️⃣' && user.id === message.author.id;
+      const f3 = (reaction, user) => reaction.emoji.name === '3️⃣' && user.id === message.author.id;
+      const f4 = (reaction, user) => reaction.emoji.name === '4️⃣' && user.id === message.author.id;
+   //   const backwards = msg.createReactionCollector(backwardsFilter, { time: 60000 }); 
+      const f1 = msg.createReactionCollector(f1, { time: 60000 });
+      const f2 = msg.createReactionCollector(f2, { time: 60000 });
+      const f3 = msg.createReactionCollector(f3, { time: 60000 });
+      const f4 = msg.createReactionCollector(f4, { time: 60000 });
+      f1.on('collect', r => { 
         if (page === 1) return; 
         page--; 
     //    embed.setDescription(`тест 2 pages[page-1]`); 
@@ -71,7 +78,7 @@ exports.run = (bot,message,args) => {
         embed.setFooter(`Страница ${page}`);
         msg.edit(embed) 
       })
-      backwards.on('collect', r => { 
+      f2.on('collect', r => { 
         if (page === pages.length) return; 
         page++; 
     //    embed.setDescription(`тест 3 pages[page-1]`); 
@@ -79,17 +86,20 @@ exports.run = (bot,message,args) => {
         embed.setFooter(`Страница ${page}`);
         msg.edit(embed) 
       }) 
-      backwards.on('collect', r => { 
+      f3.on('collect', r => { 
         if (page === 1) return; 
         page--; 
     //    embed.setDescription(`тест 2 pages[page-1]`); 
        embed.addField('**Команды модерации [доработка]**', '`s/warn` **┃ выдать предупреждение**\n`s/unwarn` **┃ снять предупреждение**\n`s/ban` **┃ выдать блокировку**\n`s/mute` **┃ выдать мут**\n`s/pin [id sms]` **┃ закрепить сообщение**\n`s/say` **┃ отправить сообщение от имени бота**\n`s/reload` **┃ перезагрузить команду**\n`s/change` **┃ отредактировать сообщение бота**\n`s/clear` **┃ удалить сообщения**\n`s/kick` **┃ кикнуть юзера**')
         embed.setFooter(`Страница ${page}`);
-        msg.edit(embed) 
+        msg.edit(embed)
       })
     })
   })
+})
+  })
 }
+
 module.exports.help = {
     name: "pages",
     aliases: []
