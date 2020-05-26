@@ -1,4 +1,3 @@
-/*
 const Discord = require('discord.js'); 
  exports.run = (bot,message,args) => {
   let pages = []; 
@@ -43,8 +42,8 @@ module.exports.help = {
     name: "pages",
     aliases: []
 };
-*/
 
+/*
 const Discord = require('discord.js'); 
  
 exports.run = (bot,message,args) => {
@@ -104,3 +103,4 @@ module.exports.help = {
     name: "pages",
     aliases: []
 };
+*/
