@@ -1,3 +1,4 @@
+/*
 const Discord = module.require("discord.js");
 const fs = require("fs");
 module.exports.run = async (bot,message,args) => {
@@ -17,4 +18,36 @@ module.exports.run = async (bot,message,args) => {
 };
 module.exports.help = {
     name: "userinfo"
+};
+*/
+
+const Discord = module.require("discord.js");
+const fs = require("fs");
+module.exports.run = async (bot,message,args) => {
+
+    let user;
+    if (message.mentions.users.first()) {
+        user = message.mentions.users.first();
+    } else {
+        user = message.enter.code.here.author;
+    }
+    const member = message.guild.member(user);
+    const embed = new Discord.RichEmbed()
+    .setColor("#4682B4")
+    .setThumbnail(message.author.avatarURL)
+    .addField(`${user.tag}`, `${user}`, true)
+    .addField("**ID:**", `${user.id}`, true)
+    .addField("**Никнейм:**", `${member.nickname !== null ? `${member.nickname}` : `Нет`}`, true)
+    .addField("**Статус:**", `${user.presence.status}`, true)
+    .addField("**Сервер:**", message.guild.name, true)
+    .addField("**Игра:**", `${user.presence.game ? user.presence.game.name : `Нет`}`, true)
+    .addField("**Бот:**", `${user.bot}`, true)
+    .addField("**Зашёл на сервер:**", `${moment.utc(member.joinedAt).format("dddd, MMMM Do YYYY")}`, true)
+    .addField("**Создал аккаунт:**", `${moment.utc(user.createdAt).format("dddd, MMMM Do YYYY")}`, true) 
+    .addField("**Список ролей**", member.roles.map(roles => `${roles}`).join(`, `), true)
+message.channel.send({embed});
+};
+
+module.exports.help = {
+  name: "userinfo"
 };
