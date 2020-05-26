@@ -42,8 +42,8 @@ module.exports.run = async (bot,message,args) => {
     .addField("**Сервер:**", message.guild.name, true)
     .addField("**Игра:**", `${user.presence.game ? user.presence.game.name : `Нет`}`, true)
     .addField("**Бот:**", `${user.bot}`, true)
-    .addField("**Зашёл на сервер:**", `${(member.joinedAt).format("dddd, MMMM Do YYYY")}`, true)
-    .addField("**Создал аккаунт:**", `${(user.createdAt).format("dddd, MMMM Do YYYY")}`, true) 
+    .addField("**Зашёл на сервер:**", (member.joinedAt), true)
+    .addField("**Создал аккаунт:**", (user.createdAt), true) 
     .addField("**Список ролей**", member.roles.map(roles => `${roles}`).join(`, `), true)
 message.channel.send({embed});
 };
