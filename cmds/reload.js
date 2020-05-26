@@ -1,20 +1,27 @@
-module.exports.run = async (Discord, bot, message, args) => {
-    if (message.author = "492256216374837249") return message.channel.send("Ты не мой хозяин((")
-    if (!args[0]) return message.channel.send("А де название команды?")
-   
+const Discord = module.require("discord.js");
+const fs = require("fs");
+
+module.exports.run = async (bot,message,args) => {
+
+    if(message.author.id != "492256216374837249") return message.channel.send("Ты не хозяин бота((")
+
+    if(!args[0]) return message.channel.send("Ты не указал команду для перезагрузки!")
+
     let commandName = args[0].toLowerCase()
+
     try {
-        delete require.cache[require.resolve(`./${commandName}.js`)]
+        delete require.cache[require.resolve(`./${commandName}.js`)] 
         bot.commands.delete(commandName)
         const pull = require(`./${commandName}.js`)
         bot.commands.set(commandName, pull)
-    } catch (e) {
-        return message.channel.send(` ${args[0].toLowerCase()} не могу найти данную команду`)
+    } catch(e) {
+        return message.channel.send(`Комманда: \`${args[0].toUpperCase()}\` не найдена!`)
+    }
+
+    message.channel.send(`Комманда \`${args[0].toUpperCase()}\` была перезагружена!`)
 
     }
-    message.channel.send(` ``${args[0].toUpperCase()}.js`` кастом`)
-}
-module.exports.help = {
-    name: 'reload',
-    aliases: []
-}
+
+exports.help = {
+    name: "reload"
+};
