@@ -51,9 +51,9 @@ exports.run = (bot,message,args) => {
   let pages = []; 
   let page = 1; 
   const embed = new Discord.RichEmbed() 
-    .setColor(0xffffff)
-    .setFooter(`Page ${page} of ${pages.length}`) 
-    .setDescription(pages[page-1])
+    .setColor("#4682B4")
+    .setFooter(`Страница ${page} из ${pages.length}`) 
+    .setDescription(`тест 1 pages[page-1]`)
   message.channel.send(embed).then(msg => { 
     msg.react('⏪').then( r => { 
       msg.react('⏩') 
@@ -64,15 +64,15 @@ exports.run = (bot,message,args) => {
       backwards.on('collect', r => { 
         if (page === 1) return; 
         page--; 
-        embed.setDescription(pages[page-1]); 
-        embed.setFooter(`Page ${page} of ${pages.length}`); 
+        embed.setDescription(`тест 2 pages[page-1]`); 
+        embed.setFooter(`Страница ${page} из ${pages.length}`);
         msg.edit(embed) 
       })
       forwards.on('collect', r => { 
         if (page === pages.length) return; 
         page++; 
-        embed.setDescription(pages[page-1]); 
-        embed.setFooter(`Page ${page} of ${pages.length}`); 
+        embed.setDescription(`тест 3 pages[page-1]`); 
+        embed.setFooter(`Страница ${page} из ${pages.length}`);
         msg.edit(embed) 
       }) 
     })
