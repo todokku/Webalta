@@ -1130,33 +1130,27 @@ if (message.content == "/embsend") {
             }
           });
 
-      /*    const configg = {
-            voice: "628628154075840537", // ID голос. канала с которого будут создаваться приват каналы
-            parent: "628628154075840536" // ID категории
-          }
-          //Вместо инстансов GuildMember, используются инстансы VoiceState, что равносильно member.voice
-          bot.on("voiceStateUpdate", (oldState, newState) => {
-            if(!oldState.guild.channels.cache.has(configg.voice) || !oldState.guild.channels.cache.has(configg.voice)) throw Error('`[Ошибка] Не указано либо ID канала, либо ID категории`')
-            if(newState.channelID === configg.voice) {
-              newState.guild.channels.create("Private", { // Имя привата
-                type: "VOICE",
-                parent: configg.parent,
-                permissionOverwrites: [
-                  {
-                     id: newState.guild.id, //Права для роли @everyone
-                     allow: ["VIEW_CHANNEL"]
-                  },
-                  {
-                    id: newState.member.id, //Права для создателя канала
-                    allow: ["VIEW_CHANNEL", "MANAGE_CHANNELS"]
-                  }
-                ]
-              }).then(ch => newState.setChannel(ch))
-            }
-            //удаление канала, если в нем больше не осталось человек
-            if(oldState.channel && !oldState.channel.members.size && oldState.channel.parentID === configg.parent && oldState.channelID !== configg.voice) oldState.channel.delete();
-          }); */
-
+              presences = [{
+            game: 'Dota 2', //Какой должен быть статус для роли
+            name: 'Дотер' //название самой роли
+        },{
+            game: 'OSU!',
+            name: 'осу'
+        },{
+            game: 'Visual Studio Code',
+            name: 'Я так понимаю кодер'
+            //просто крч перед настройками ставьте },{
+        }]
+        bot.on('presenceUpdate', member => {
+            getRole = (name) => {return member.guild.roles.find(r => r.name == name)}
+            if(!member.guild.id === "566345849412648971") return;
+            if(member.user.bot) return;
+            presences.forEach(presence => {
+                if(member.roles.has(getRole(presence.name))
+                && !getRole(presence.name))return;
+                if(member.presence.game == presence.game)return member.addRole(getRole(presence.name).id)
+            })
+        });
 
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
