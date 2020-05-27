@@ -16,23 +16,6 @@ module.exports.run = async (client, message, args) => {
   if (!muser) muser = message.member;
   if(!user) user = message.author;
 
-  let status = ""
-  if(status === null) status = "Без игры"
-  if(muser.presence.activities[0].type == 'CUSTOM_STATUS'){
-    let cstatus = muser.presence.activities[0].state
-    if(muser.presence.activities[0].emoji) {
-      if(muser.presence.activities[0].emoji.animated == true){
-        cstatus = `<a:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}> ${cstatus}`
-      }
-      if(muser.presence.activities[0].emoji.animated !== true){
-        cstatus = `<:${muser.presence.activities[0].emoji.name}:${muser.presence.activities[0].emoji.id}>${cstatus}`
-      }
-    }
-    status = `Custom Status:\n${cstatus}\nApp:\n${muser.presence.activities[1].name}`
-  }else{
-    status = `${muser.presence.activities[0].type.toLowerCase()}: ${muser.presence.activities[0].name}`
-  }
-
   const embed = new Discord.MessageEmbed();
   embed.addField("Имя", `${user.username}#${user.discriminator}`, true)
           .addField("ID", `${user.id}`, true)
@@ -40,7 +23,6 @@ module.exports.run = async (client, message, args) => {
           .setThumbnail(`${user.avatarURL()}`)
           .setTimestamp()
           .setURL(`${user.avatarURL()}`)
-          .addField('В настоящее время', `${muser.presence.status.toUpperCase()}`, true)
           .addField('Игра', status, true)
           .addField('Создал аккаунт', `${moment(user.createdAt).toString().substr(0, 15)}\n(${moment(user.createdAt).fromNow()})`, true)
           .addField('Зашёл на сервер', `${moment(muser.joinedAt).toString().substr(0, 15)}\n(${moment(muser.joinedAt).fromNow()})`, true)
