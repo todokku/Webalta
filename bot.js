@@ -1117,8 +1117,10 @@ if (message.content == "/embsend") {
             if (message.content == 's/servers'){
                 message.delete('s/servers')
             bot.guilds.forEach((guild) => {
-                message.reply('**Серверы:**')
-                message.channel.send(`**- ${guild.name}**`);
+                const embed = new Discord.RichEmbed()
+                .setDescription(`**- ${guild.name}**`)
+              //  message.channel.send(`**- ${guild.name}**`);
+              message.channel.send(embed)
           });
           }
     });
