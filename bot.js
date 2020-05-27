@@ -49,17 +49,6 @@ const developers = [
         }
     }
     });
-  /*  
-bot.on('ready', () => {
-    console.log(`Выполнен вход как ${bot.user.username}`);
-    bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
-        console.log(link); */
-       /* setInterval(() => {
-      bot.user.setActivity(`за Стиллерами 👾`, { type: "WATCHING" });
-      bot.user.setActivity('инструкции и приказы 👻', { type: "LISTENING" });
-      bot.user.setActivity('за командами s/help 👀', { type: "WATCHING" });
-    }, 5000)
-}); */
 
 bot.on("ready", message => {
 console.log(`Выполнен вход как ${bot.user.username}`);
