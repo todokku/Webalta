@@ -5,8 +5,7 @@ module.exports.run = async (bot, message, args) => {
     message.delete('s/servers')
     bot.guilds.forEach((guild) => {
         const embed = new Discord.RichEmbed()
-        .setDescription(`**- ${guild.name} ┃ ${guild.name}**`)
-      //  message.channel.send(`**- ${guild.name}**`);
+        .setDescription(`**- ${guild.name} ┃ ${guild.id}**`)
       message.channel.send(embed);
     });
 }
