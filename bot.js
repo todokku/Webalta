@@ -15,7 +15,6 @@ bot.on('ready', () => {
 
 bot.commands = new Discord.Collection();
 const fs = require('fs');
-bot.mutes = require('./mutes.json');
  let config = require('./botconfig.json');
  let token = config.token;
 let prefix = config.prefix;
