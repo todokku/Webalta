@@ -1112,7 +1112,7 @@ if (message.content == "/embsend") {
                 if(member.presence.game == presence.game)return member.addRole(getRole(presence.name).id)
             })
         });
-
+/*
         bot.on('message', message => {
             if (message.content == 's/servers'){
                 message.delete('s/servers')
@@ -1124,7 +1124,7 @@ if (message.content == "/embsend") {
           });
           }
     });
-
+*/
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
            bot.login(process.env.BOT_TOKEN);
