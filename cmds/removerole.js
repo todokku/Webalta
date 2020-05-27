@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports.run = async (bot,message,args) => {
-    if (!message.guild.member(client.user).hasPermission("MANAGE_ROLES")) return message.reply('`У тебя не хватает прав` <:err:715285004657229896>');
+    if (!message.guild.member(bot.user).hasPermission("MANAGE_ROLES")) return message.reply('`У тебя не хватает прав` <:err:715285004657229896>');
     if (message.mentions.users.size === 0) return message.reply('`Укажи юзера, которому нужно снять роль` <:err:715285004657229896>');
     let member = message.guild.member(message.mentions.users.first());
     if (!member) return message.reply('`Я не смог найти юзера` <:err:715285004657229896>');
