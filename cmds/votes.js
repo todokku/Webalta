@@ -5,8 +5,6 @@ const disagree = "❎";
 
 module.exports.run = async (bot, message, args) => {
   if(!args || args[0] === 'help') return message.reply('`Используй: s/votes <опрос>` <:err:715285004657229896>')
-  // Number.isInteger(itime)
-  //  if (e) return message.reply('please supply a valid time number in seconds')
   let question = message.content.split(" ").splice(1).join(" ")
   if(question.length < 1){
     let msg = await message.channel.send('`Голосуйте! Время голосования: 2 минуты`');
