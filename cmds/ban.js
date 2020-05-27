@@ -49,15 +49,6 @@ module.exports.run = async (bot,message,args) => {
   if (user.id === bot.user.id) return message.channel.send('`Нельзя забанить самого себя` <:err:715285004657229896>');
   if (message.mentions.users.first().id === "492256216374837249") return message.channel.send('`Я не могу сделать этого` <:err:715285004657229896>');
   if (reason.length < 1) reason = 'Без объяснения причины';
-  let botRolePossition = message.guild.member(bot.user).roles.highest.position;
-  let rolePosition = message.guild.member(user).roles.highest.position;
-  let userRolePossition = message.member.roles.highest.position;
-  if (userRolePossition <= rolePosition) return message.channel.send('`Нельзя забанить участника, потому что у него есть роли выше или равные твоим` <:err:715285004657229896>')
-  if (botRolePossition <= rolePosition) return message.channel.send('`Я не могу забанить участника, потому что у него есть роли выше или равные моим` <:err:715285004657229896>')
-  if (!message.guild.member(user).bannable) {
-    message.channel.send('`Я не могу забанить этого участника. Возможно, моя роль недостаточно высока` <:err:715285004657229896>');
-    return
-  }else{
     const embed = new Discord.MessageEmbed()
     .setColor(`#4682B4`)
     .setTimestamp()
@@ -82,7 +73,7 @@ module.exports.run = async (bot,message,args) => {
       if(e) return 
     });
   }
-};
+
 
 module.exports.conf = {
   enabled: true,
