@@ -4,7 +4,6 @@ bot.on('ready', () => {
     console.log(`Выполнен вход как ${bot.user.username}`);
     bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
         console.log(link);
-    var i = 0;
     });
 });
 
