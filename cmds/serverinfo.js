@@ -34,6 +34,7 @@ module.exports.run = (bot, message, args) => {
         .addField('**Ролей**', message.guild.roles.size, true)
         .addField('**Эмоций**', message.guild.emojis.size, true)
         .addField('**Канал AFK**', 'доработка', true)
+        .addField("**AFK**", message.guild.afkTimeout / 60 + ' minutes', true)
         .setTimestamp(new Date(message.guild.createdTimestamp))
         .setFooter('Сервер создан')
         .setColor('#4682B4')
