@@ -4,15 +4,6 @@ bot.on('ready', () => {
     console.log(`Выполнен вход как ${bot.user.username}`);
 });
 
-/*bot.on('message', message => {
-    if (message.content === 's/ping') {
-        var pingembed = new Discord.RichEmbed()
-        .setColor("#4682B4")
-        .setTitle(`Ping ${bot.ping}ms pong :ping_pong:`)
-         message.channel.send(pingembed).then(msg => msg.delete(600000));
-      }
-});*/
-
 bot.commands = new Discord.Collection();
 const fs = require('fs');
  let config = require('./botconfig.json');
@@ -1121,6 +1112,16 @@ if (message.content == "/embsend") {
                 if(member.presence.game == presence.game)return member.addRole(getRole(presence.name).id)
             })
         });
+
+        bot.on('ready', () => {
+          if (message.content == 's/servers') {
+              message.delete('s/servers')
+            bot.guilds.forEach((guild) => {
+                message.reply('**Серверы:**')
+                message.channel.send(`**Серверы:\n- ${guild.name}**`);
+          });
+          }
+    });
 
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
