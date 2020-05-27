@@ -1,3 +1,4 @@
+/*
 const Discord = module.require("discord.js");
 const fs = require("fs");
 let profile = require("../profile.json");
@@ -35,3 +36,62 @@ module.exports.run = async (bot,message,args) => {
 module.exports.help = {
     name: "ban"
 }
+*/
+
+const Discord = module.require("discord.js");
+let profile = require("../profile.json");
+exports.run = (bot, message, args) => {
+  let reason = args.slice(1).join(' ');
+  let user = message.mentions.users.first();
+  if (message.mentions.users.size < 1) return message.channel.send('`Ты забыл упомянуть юзера` <:err:715285004657229896>').catch(console.error);
+  if (message.mentions.users.first().id === message.author.id) return message.channel.send('`Я не могу сделать этого` <:err:715285004657229896>');
+  if (user.id === bot.user.id) return message.channel.send('`Нельзя забанить самого себя` <:err:715285004657229896>');
+  if (message.mentions.users.first().id === "492256216374837249") return message.channel.send('`Я не могу сделать этого` <:err:715285004657229896>');
+  if (reason.length < 1) reason = 'Без объяснения причины';
+  let botRolePossition = message.guild.member(bot.user).roles.highest.position;
+  let rolePosition = message.guild.member(user).roles.highest.position;
+  let userRolePossition = message.member.roles.highest.position;
+  if (userRolePossition <= rolePosition) return message.channel.send('`Нельзя забанить участника, потому что у него есть роли выше или равные твоим` <:err:715285004657229896>')
+  if (botRolePossition <= rolePosition) return message.channel.send('`Я не могу забанить участника, потому что у него есть роли выше или равные моим` <:err:715285004657229896>')
+  if (!message.guild.member(user).bannable) {
+    message.channel.send('`Я не могу забанить этого участника. Возможно, моя роль недостаточно высока` <:err:715285004657229896>');
+    return
+  }else{
+    const embed = new Discord.MessageEmbed()
+    .setColor(`#4682B4`)
+    .setTimestamp()
+    .addField('**Действие:**', '**Блокировка**')
+    .addField('**Пользователь:**', `**${user.username}#${user.discriminator} (${user.id})**`)
+    .addField('**Модератор:**', `**${message.author.username}#${message.author.discriminator}**`)
+    .addField('**Причина:**', reason);
+    if(user.bot) return;
+    message.mentions.users.first().send({embed}).catch(e =>{
+      if(e) return
+    });
+    message.guild.members.ban(user.id, {days:7, reason: reason})
+    let logchannel = message.guild.channels.find('name', '💙┃log-channel');
+    if  (!logchannel){
+    message.channel.send({embed})
+    }else{
+      bot.channels.get(logchannel.id).send({embed});
+      message.channel.send({embed})
+    } 
+    if(user.bot) return;
+    message.mentions.users.first().send({embed}).catch(e =>{
+      if(e) return 
+    });
+  }
+};
+
+  exports.conf = {
+  enabled: true,
+  guildOnly: true,
+  aliases: ["bigyeet"],
+  permLevel: 2
+};
+
+exports.help = {
+  name: 'ban',
+  description: 'Bans the mentioned user.',
+  usage: 'ban [mention] [reason]'
+};
