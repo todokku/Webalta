@@ -6,7 +6,7 @@ function checkDays(date) {
   let days = Math.floor(diff / 86400000);
   return days + (days == 1 ? " day" : " days") + " ago";
 };
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (bot, message, args) => {
   let user = message.mentions.users.first();
   let muser = message.guild.member(message.mentions.users.first());
   if(!message.mentions.users.first() && args.lenth > 0){
@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args) => {
   const embed = new Discord.MessageEmbed();
   embed.addField("Имя", `${user.username}#${user.discriminator}`, true)
           .addField("ID", `${user.id}`, true)
-          .setColor(3447003)
+          .setColor(`#4682B4`)
           .setThumbnail(`${user.avatarURL()}`)
           .setTimestamp()
           .setURL(`${user.avatarURL()}`)
