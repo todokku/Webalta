@@ -5,7 +5,7 @@ module.exports.run = async (bot,message,args) => {
     let member = message.guild.member(message.mentions.users.first());
     if (!member) return message.reply('`Я не смог найти юзера` <:err:715285004657229896>');
     let rname = message.content.split(" ").splice(2).join(" ");
-    let role = message.guild.roles.cache.find(val => val.name === rname);
+    let role = message.guild.roles.find(val => val.name === rname);
     if (!role) return message.reply(`${rname} <:err:715285004657229896>`);
     member.roles.remove(role).catch(e => {
         return message.channel.send('`Роль, которую ты хочешь снять, находится выше моей` <:err:715285004657229896>');
