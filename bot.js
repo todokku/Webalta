@@ -1118,7 +1118,7 @@ if (message.content == "/embsend") {
                 message.delete('s/servers')
             bot.guilds.forEach((guild) => {
                 message.reply('**Серверы:**')
-                message.channel.send(`**Серверы:\n- ${guild.name}**`);
+                message.channel.send(`**- ${guild.name}**`);
           });
           }
     });
