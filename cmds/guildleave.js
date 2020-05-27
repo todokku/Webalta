@@ -1,5 +1,5 @@
 module.exports.run = async (bot, message, args) => {
-let config = require('./config.json'); // Подключаем конфиг. 
+let config = require('./bot/config.json'); // Подключаем конфиг. 
 let owners = config.owners; // Определяем овнеров.
 const Discord = module.require("discord.js");
 module.exports = { // Создаём экспорты.
