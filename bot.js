@@ -1,8 +1,13 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.on('ready', () => {
-    console.log('I am ready!');
+    console.log(`Выполнен вход как ${bot.user.username}`);
+    bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
+        console.log(link);
+    var i = 0;
+    });
 });
+
 /*bot.on('message', message => {
     if (message.content === 's/ping') {
         var pingembed = new Discord.RichEmbed()
@@ -51,16 +56,12 @@ const developers = [
     });
 
 bot.on("ready", message => {
-console.log(`Выполнен вход как ${bot.user.username}`);
-    bot.generateInvite(["ADMINISTRATOR"]).then(link =>{
-        console.log(link);
-    var i = 0;
        var timer = bot.setInterval(function () {    
            var gamePresence = [`за Стиллерами 👾`,`инструкции и приказы 👻`,`за командами s/help 👀`];
           bot.user.setPresence({ game: { name: gamePresence[i%gamePresence.length], type: 3 } });
            i++;
-       },5000)
-   });
+       }, 5000)
+    });
 
     bot.setInterval(()=>{
         for(let i in bot.mutes){
