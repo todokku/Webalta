@@ -39,8 +39,9 @@ module.exports.help = {
 */
 
 const Discord = module.require("discord.js");
+const fs = require("fs");
 let profile = require("../profile.json");
-exports.run = (bot, message, args) => {
+module.exports.run = async (bot,message,args) => {
   let reason = args.slice(1).join(' ');
   let user = message.mentions.users.first();
   if (message.mentions.users.size < 1) return message.channel.send('`Ты забыл упомянуть юзера` <:err:715285004657229896>').catch(console.error);
@@ -83,14 +84,14 @@ exports.run = (bot, message, args) => {
   }
 };
 
-  exports.conf = {
+module.exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["bigyeet"],
   permLevel: 2
 };
 
-exports.help = {
+module.exports.help = {
   name: 'ban',
   description: 'Bans the mentioned user.',
   usage: 'ban [mention] [reason]'
