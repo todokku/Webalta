@@ -4,7 +4,7 @@ const integer = require('integer')
 const agree    = "✅";
 const disagree = "❎";
 
-exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args) => {
   if(!args || args[0] === 'help') return message.reply('`Используй: s/votes <опрос>` <:err:715285004657229896>')
   // Number.isInteger(itime)
   //  if (e) return message.reply('please supply a valid time number in seconds')
