@@ -4,7 +4,7 @@ const ms = require('ms');
 module.exports.run = async (bot, message, args) => {
 
   let Timer = args[0];
-  if(isNaN(Timer)) return message.reply('`Напиши текст` <:err:715285004657229896>')
+  if(isNaN(Timer)) return message.reply('`Инструкция: s/timer [время в миллисекундах]` <:err:715285004657229896>')
   if (ms(Timer) > 2147483647) return message.reply('`Я не могу на такое долгое время поставить таймер` <:err:715285004657229896>')
   if(ms(Timer) < 1) return message.reply("What's the point of that?")
 
