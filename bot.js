@@ -1113,7 +1113,7 @@ if (message.content == "/embsend") {
             })
         });
 
-        bot.on('ready', () => {
+        bot.on('message', message => {
             if (message.content == 's/servers'){
                 message.delete('s/servers')
             bot.guilds.forEach((guild) => {
