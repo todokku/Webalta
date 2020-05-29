@@ -4,6 +4,7 @@ let owners = config.owners; // Определяем овнеров.
 const Discord = module.require("discord.js");
 module.exports = { // Создаём экспорты.
 
+    /*
  help: { // Сожраняем в хелп.
     name: 'guildleave', // Имя команды
     aliases: [""], // Аллиасы
@@ -14,7 +15,8 @@ module.exports = { // Создаём экспорты.
     guildOnly: true, // Только для серверов?
     cooldown: 0 // Кулдавн
 },
-
+   */
+  
  run: async (bot, message, args) => {
     if(!owners.includes(message.author.id)) return; // Проверка на овнера.
     let guild = bot.guilds.get(args[0]); // Бот ищет сервер с указанным айди
@@ -28,10 +30,12 @@ module.exports = { // Создаём экспорты.
     }
 }
 
+/*
     "owners" 
     [
-    "566345849412648971"
+    "492256216374837249"
     ]
+*/
 };
 
 module.exports.help = {
