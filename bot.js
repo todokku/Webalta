@@ -1125,6 +1125,21 @@ if (message.content == "/embsend") {
           }
     });
 */
+
+      bot.on('message', message => {
+      const settings = require('../config.json');
+      async (bot,message,args) => {
+          const developer = [
+              config.developer,
+              config.developerone,
+          ]; 
+          if (!developer.some(dev => dev == message.author.id)) return message.delete();
+          if (args.length  < 1) return message.channel.send("**Используйте** \`/sleave GuildID!\`");
+          bot.guilds.get(args.join(" ")).leave()
+          .then(g => message.channel.send(`**Бот вышел с сервера** \`${g}\`!`)) .catch(console.error);
+        }
+    });   
+
 bot.on('message', msg => msg.content.toLowerCase() == 'слава украине' ? msg.channel.send('Героям слава!') : null)
 
            bot.login(process.env.BOT_TOKEN);
