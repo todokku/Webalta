@@ -29,7 +29,7 @@ module.exports.run = async (bot,message,args) => {
     if (message.mentions.users.first()) {
         user = message.mentions.users.first();
     } else {
-        user = message.enter.code.here.author;
+        user = message.enter.here.author;
     }
     const member = message.guild.member(user);
     const embed = new Discord.RichEmbed()
