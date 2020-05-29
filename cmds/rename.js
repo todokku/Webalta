@@ -3,6 +3,7 @@ const fs = require("fs");
 const ms = require("ms");
 
 module.exports.run = (bot, message, args) => {
+  if (!message.member.roles.some(r => r.name == "[🥇] Security", "[📞] Discord Master") && !member.hasPermission("ADMINISTRATOR")) return message.delete();
   let newname = args.slice(1).join(' ');
   let user;
   let mention = message.mentions.users.first();
