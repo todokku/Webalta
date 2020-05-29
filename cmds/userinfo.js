@@ -24,7 +24,7 @@ module.exports.help = {
 const Discord = module.require("discord.js");
 const fs = require("fs");
 module.exports.run = async (bot,message,args) => {
-
+    if (message.mentions.users.size < 1) return message.channel.send('`Ты забыл упомянуть пользователя` <:err:715285004657229896>');
     let user;
     if (message.mentions.users.first()) {
         user = message.mentions.users.first();
