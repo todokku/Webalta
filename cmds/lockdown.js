@@ -1,7 +1,7 @@
 const ms = require("ms");
 
 module.exports.run = async(bot, message, args) => {
-
+    if (!message.member.roles.some(r => r.name == "[🥇] Security", "[📞] Discord Master") && !member.hasPermission("ADMINISTRATOR")) return message.delete();
 if (!bot.lockit) bot.lockit = [];
 
 const time = args.join(" ");
